@@ -1,0 +1,38 @@
+:root {
+  --bg-grad: radial-gradient(1200px 800px at 10% 0%, #0d1220 0%, #0a0d18 45%, #070a12 100%);
+  --fg: #eaf1ff;
+  --muted: rgba(234, 241, 255, .7);
+  --glass: rgba(255, 255, 255, .08);
+  --border: rgba(255, 255, 255, .16);
+  --brand: #FFD166;
+  --brand2: #06D6A0;
+  --brand3: #118AB2;
+  --brand4: #EF476F;
+  --radius: 18px;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-grad: radial-gradient(1200px 800px at 10% 0%, #f7fbff 0%, #ecf4ff 45%, #e8f0ff 100%);
+    --fg: #0e1320;
+    --muted: rgba(20, 25, 35, .7);
+    --glass: rgba(255, 255, 255, .6);
+    --border: rgba(0, 0, 0, .08);
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg-grad: radial-gradient(1200px 800px at 10% 0%, #0d1220 0%, #0a0d18 45%, #070a12 100%);
+  --fg: #eaf1ff;
+  --muted: rgba(234, 241, 255, .7);
+  --glass: rgba(255, 255, 255, .08);
+  --border: rgba(255, 255, 255, .16);
+}
+
+:root[data-theme="light"] {
+  --bg-grad: radial-gradient(1200px 800px at 10% 0%, #f7fbff 0%, #ecf4ff 45%, #e8f0ff 100%);
+  --fg: #0e1320;
+  --muted: rgba(20, 25, 35, .7);
+  --glass: rgba(255, 255, 255, .6);
+  --border: rgba(0, 0, 0, .08);
+}

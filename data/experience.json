@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "title": "Cheffe de projet applicatif / Développeuse",
+      "company": "Ville d’Arles – ACCM",
+      "period": "Juil. 2024 – Aujourd’hui",
+      "stack": ["PHP", "JS", "PostgreSQL", "Oracle", "Linux", "WordPress", "Bash", "PowerShell", "Django"],
+      "type": "lead",
+      "desc": "Pilotage de projets applicatifs, portail de démarches en ligne, développement & maintenance front/back, coordination équipes et prestataires."
+    },
+    {
+      "title": "Stagiaire dev & systèmes",
+      "company": "Mairie d’Arles",
+      "period": "Avr. 2018 – Juin 2019",
+      "stack": ["PHP", "PostgreSQL", "JS"],
+      "type": "dev",
+      "desc": "Migration opérateur Internet intercommunal. Développement OpenHabilitation."
+    },
+    {
+      "title": "Veilleuse de nuit",
+      "company": "ACCPA",
+      "period": "Sep. 2023 – Août 2024",
+      "stack": [],
+      "type": "other",
+      "desc": "Expérience humaine et sens des responsabilités."
+    }
+  ]
+}

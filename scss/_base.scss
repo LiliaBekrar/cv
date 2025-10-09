@@ -1,0 +1,117 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+  color: var(--fg);
+  background: var(--bg-grad);
+}
+
+a {
+  color: var(--fg);
+  text-decoration: none;
+}
+
+kbd {
+  background: rgba(255, 255, 255, .1);
+  border: 1px solid rgba(255, 255, 255, .2);
+  padding: .1rem .35rem;
+  border-radius: .35rem;
+}
+
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.btn {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--brand), var(--brand2));
+  color: #111;
+  padding: .8rem 1.1rem;
+  border-radius: 1rem;
+  font-weight: 800;
+  border: 1px solid transparent;
+  transition: transform .2s, box-shadow .2s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, .25);
+  }
+}
+
+.btn-lg {
+  font-size: 1.05rem;
+}
+
+.btn.small {
+  padding: .45rem .7rem;
+  font-weight: 700;
+}
+
+.btn.ghost {
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid var(--border);
+}
+
+.glass {
+  background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .03));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+}
+
+:root[data-theme="light"] .glass {
+  background: linear-gradient(180deg, rgba(255, 255, 255, .8), rgba(255, 255, 255, .5));
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+}
+
+.section {
+  padding: 3.2rem 0;
+}
+
+.section h2 {
+  margin: 0 0 .9rem;
+  font-size: clamp(1.5rem, 5vw, 2.2rem);
+}
+
+#progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--brand3), var(--brand4));
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  z-index: 9999;
+}
+
+.light-sweep {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(600px 600px at var(--mx, 50%) var(--my, 50%), rgba(239, 71, 111, .18), transparent 60%),
+    radial-gradient(900px 900px at calc(var(--mx, 50%) + 20%) calc(var(--my, 50%) + 10%), rgba(17, 138, 178, .12), transparent 60%);
+  mix-blend-mode: screen;
+}
+
+.footer {
+  text-align: center;
+  padding: 1.2rem 0;
+  opacity: .85;
+  border-top: 1px solid var(--border);
+}
+
+.muted {
+  color: var(--muted);
+}

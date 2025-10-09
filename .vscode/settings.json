@@ -1,0 +1,19 @@
+{
+  "liveSassCompile.settings.formats": [
+    {
+      "format": "expanded",
+      "extensionName": ".css",
+      "savePath": "./css"
+    }
+  ],
+  "liveSassCompile.settings.generateMap": true,
+  "liveSassCompile.settings.autoprefix": [
+    "> 1%",
+    "last 2 versions",
+    "Firefox ESR"
+  ],
+  "liveSassCompile.settings.useNewCompiler": true,
+  "liveSassCompile.settings.includeItems": [
+    "scss/styles.scss"
+  ]
+}

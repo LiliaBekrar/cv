@@ -1,0 +1,8 @@
+{
+  "items": [
+    { "title": "Le Wagon — Marseille (RNCP niv.6)", "place": "Marseille", "years": "2021–2022", "desc": "Concepteur·trice dev d’app web. Major de promotion (mise en lumière dans Accents de Provence)." },
+    { "title": "DUT MMI — Université", "place": "Provence", "years": "2017–2019", "desc": "Spécialité programmation & développement web." },
+    { "title": "Licence Pro MIW — IUT de Gap", "place": "Gap", "years": "2019–2020", "desc": "Cursus suivi (interrompu)." },
+    { "title": "Parcours scientifique initial", "place": "Bouches-du-Rhône", "years": "2013–2016", "desc": "Bac STL TB + DUT MP + PACES." }
+  ]
+}

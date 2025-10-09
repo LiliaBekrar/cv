@@ -1,0 +1,36 @@
+#celebrate {
+  position: fixed;
+  inset: 0;
+  display: none;
+  place-items: center;
+  z-index: 9998;
+}
+
+#celebrate.show {
+  display: grid;
+  animation: fadeIn .25s ease;
+}
+
+.celebrate-box {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 1.2rem 1.4rem;
+}
+
+#confetti {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0
+  }
+
+  to {
+    opacity: 1
+  }
+}
