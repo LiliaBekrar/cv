@@ -1,24 +1,191 @@
-
-/* ========= CTA EN BULLES (optionnel, si tu ajoutes la version “bubbles”) ========= */
+/* ========= CTA EN BULLES ========= */
 .contact-bubbles {
-  display: flex; flex-wrap: wrap; gap: 25px; margin-top: 1.25rem; list-style: none; padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  margin-top: 2rem;
+  list-style: none;
+  padding: 0;
 }
+
 .contact-bubbles li {
-  position: relative; width: 100px; height: 100px; border-radius: 60px;
-  background: rgba(255,255,255,.1); box-shadow: 0 10px 25px rgba(0,0,0,.14);
-  overflow: hidden; transition: all .45s ease;
+  /* Vars */
+  --w: 100px;
+  --halo-i: color-mix(in oklab, var(--i) 80%, transparent);
+  --halo-j: color-mix(in oklab, var(--j) 80%, transparent);
+
+  position: relative;
+  width: var(--w);
+  height: 100px;
+  border-radius: 60px;
+  overflow: hidden;
+  z-index: 0;
+
+  /* 🌈 Dégradé toujours visible */
+  background: linear-gradient(45deg, var(--halo-i), var(--halo-j));
+
+  /* 💫 Halo permanent */
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.45),
+    0 0 12px color-mix(in oklab, var(--halo-i) 70%, transparent),
+    0 0 22px color-mix(in oklab, var(--halo-j) 60%, transparent),
+    0 10px 25px rgba(0,0,0,.14);
+
+  transition:
+    width .45s cubic-bezier(.2,.9,.2,1),
+    box-shadow .45s ease,
+    transform .45s ease,
+    background .3s ease;
 }
-:root[data-theme="light"] .contact-bubbles li { background: rgba(255,255,255,.85); box-shadow: 0 6px 16px rgba(0,0,0,.08); }
-.contact-bubbles li:hover { width: 200px; box-shadow: 0 10px 25px rgba(0,0,0,0); }
+
+:root[data-theme="light"] .contact-bubbles li {
+  background: linear-gradient(45deg,
+    color-mix(in oklab, var(--i) 85%, white 10%),
+    color-mix(in oklab, var(--j) 85%, white 10%)
+  );
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.7),
+    0 0 10px color-mix(in oklab, var(--halo-i) 55%, transparent),
+    0 0 18px color-mix(in oklab, var(--halo-j) 45%, transparent),
+    0 6px 16px rgba(0,0,0,.08);
+}
+
+/* 🌟 Dégradé interne au swap icon/titre */
 .contact-bubbles li::before,
 .contact-bubbles li::after {
-  content:""; position:absolute; inset:0; border-radius:60px; background: linear-gradient(45deg,var(--i),var(--j)); opacity:0; transition:.5s;
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 60px;
+  background: linear-gradient(45deg, var(--i), var(--j));
+  opacity: 0;
+  transition: opacity .5s ease;
 }
-.contact-bubbles li::after { top:10px; filter: blur(15px); z-index:-1; }
-.contact-bubbles li:hover::before { opacity:1; }
-.contact-bubbles li:hover::after { opacity:.5; }
-.contact-bubbles a { display:flex; align-items:center; justify-content:center; height:100%; width:100%; color:var(--fg); text-decoration:none; position:relative; z-index:1; }
-.contact-bubbles .icon { font-size:2rem; transition: .4s; background: inherit; border: none; width: 100%; color:var(--fg)}
-.contact-bubbles li:hover .icon { transform: scale(0); color:#fff; }
-.contact-bubbles .title { position:absolute; color:#fff; font-size:1.1rem; text-transform:uppercase; letter-spacing:.05em; transform:scale(0); transition:.4s; }
-.contact-bubbles li:hover .title { transform: scale(1); }
+.contact-bubbles li::after {
+  top: 10px;
+  filter: blur(15px);
+  z-index: -1;
+}
+
+.contact-bubbles a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  text-decoration: none;
+  position: relative;
+  z-index: 1;
+  color: var(--fg);
+}
+
+/* === Icône visible par défaut === */
+.contact-bubbles .icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  font-size: 2rem;
+  line-height: 1;
+  color: rgba(255,255,255,.92);
+  background: transparent; /* ✅ fond transparent */
+  transition: transform .4s ease, color .4s ease, background-color .2s ease;
+}
+
+.contact-bubbles .icon svg {
+  display: block;
+  background: transparent;
+}
+
+/* === Titre caché par défaut === */
+.contact-bubbles .title {
+  position: absolute;
+  color: #fff;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  transform: scale(0);
+  transition: transform .4s ease;
+}
+
+/* ======= Desktop / hover ======= */
+@media (hover:hover) and (pointer:fine) {
+  .contact-bubbles li:hover {
+    --w: 200px;
+    /* 🔥 Halo renforcé + liseré blanc */
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,.8),
+      0 0 14px rgba(255,255,255,.5),
+      0 0 28px 6px var(--halo-i),
+      0 0 44px 10px var(--halo-j),
+      0 10px 25px rgba(0,0,0,0);
+    transform: translateZ(0);
+  }
+  .contact-bubbles li:hover::before { opacity: 1; }
+  .contact-bubbles li:hover::after  { opacity: .5; }
+  .contact-bubbles li:hover .icon   { transform: scale(0); }
+  .contact-bubbles li:hover .title  { transform: scale(1); }
+    .contact-bubbles li {
+    animation: bubblePulse 3.2s ease-in-out infinite alternate;
+  }
+}
+
+/* ======= Mobile / sans hover ======= */
+@media (hover:none) {
+  /* Pas de swap : juste le style permanent */
+  .contact-bubbles li::before,
+  .contact-bubbles li::after { opacity: 0; }
+  .contact-bubbles .icon { transform: none !important; }
+  .contact-bubbles .title { display: none; }
+
+  /* Option : petit pulse discret */
+  .contact-bubbles li {
+    animation: bubblePulse 3.2s ease-in-out infinite alternate;
+  }
+}
+
+/* Pulse discret (préserve prefers-reduced-motion) */
+@keyframes bubblePulse {
+  0% {
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,.45),
+      0 0 12px color-mix(in oklab, var(--halo-i) 65%, transparent),
+      0 0 20px color-mix(in oklab, var(--halo-j) 50%, transparent),
+      0 8px 20px rgba(0,0,0,.10);
+  }
+  100% {
+    box-shadow:
+      0 0 0 2px rgba(255,255,255,.85),
+      0 0 16px rgba(255,255,255,.55),
+      0 0 28px color-mix(in oklab, var(--halo-i) 80%, transparent),
+      0 0 42px color-mix(in oklab, var(--halo-j) 65%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .contact-bubbles li { animation: none !important; }
+}
+
+/* ======= Layout responsive ======= */
+@media (max-width: 790px) {
+  .contact-bubbles { justify-content: space-evenly; }
+}
+
+@media (max-width: 570px) {
+  .contact-bubbles {
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.25rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .contact-bubbles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

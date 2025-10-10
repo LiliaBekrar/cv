@@ -190,6 +190,88 @@ html[data-theme=light] .light-sweep {
   color: var(--muted);
 }
 
+:root {
+  --heart-color: var(--rose, #e63946);
+}
+
+/* ----- CŒUR BATTANT + HALO INTENSE ----- */
+.heart-svg {
+  color: var(--heart-color);
+  display: inline-block;
+  vertical-align: -3px;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  transform-box: fill-box;
+  will-change: transform, filter;
+  -webkit-animation: beat 1.2s ease-in-out infinite, glow 2s ease-in-out infinite;
+          animation: beat 1.2s ease-in-out infinite, glow 2s ease-in-out infinite;
+}
+
+/* Battement constant */
+@-webkit-keyframes beat {
+  0%, 100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  25% {
+    -webkit-transform: scale(1.18);
+            transform: scale(1.18);
+  }
+  50% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  75% {
+    -webkit-transform: scale(1.18);
+            transform: scale(1.18);
+  }
+}
+@keyframes beat {
+  0%, 100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  25% {
+    -webkit-transform: scale(1.18);
+            transform: scale(1.18);
+  }
+  50% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  75% {
+    -webkit-transform: scale(1.18);
+            transform: scale(1.18);
+  }
+}
+/* Glow plus large et vibrant */
+@-webkit-keyframes glow {
+  0%, 100% {
+    -webkit-filter: drop-shadow(0 0 0px var(--heart-color)) drop-shadow(0 0 0px var(--heart-color));
+            filter: drop-shadow(0 0 0px var(--heart-color)) drop-shadow(0 0 0px var(--heart-color));
+  }
+  50% {
+    -webkit-filter: drop-shadow(0 0 12px var(--heart-color)) drop-shadow(0 0 24px color-mix(in oklab, var(--heart-color) 60%, white)) drop-shadow(0 0 48px color-mix(in oklab, var(--heart-color) 30%, white));
+            filter: drop-shadow(0 0 12px var(--heart-color)) drop-shadow(0 0 24px color-mix(in oklab, var(--heart-color) 60%, white)) drop-shadow(0 0 48px color-mix(in oklab, var(--heart-color) 30%, white));
+  }
+}
+@keyframes glow {
+  0%, 100% {
+    -webkit-filter: drop-shadow(0 0 0px var(--heart-color)) drop-shadow(0 0 0px var(--heart-color));
+            filter: drop-shadow(0 0 0px var(--heart-color)) drop-shadow(0 0 0px var(--heart-color));
+  }
+  50% {
+    -webkit-filter: drop-shadow(0 0 12px var(--heart-color)) drop-shadow(0 0 24px color-mix(in oklab, var(--heart-color) 60%, white)) drop-shadow(0 0 48px color-mix(in oklab, var(--heart-color) 30%, white));
+            filter: drop-shadow(0 0 12px var(--heart-color)) drop-shadow(0 0 24px color-mix(in oklab, var(--heart-color) 60%, white)) drop-shadow(0 0 48px color-mix(in oklab, var(--heart-color) 30%, white));
+  }
+}
+/* Accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  .heart-svg {
+    -webkit-animation: none;
+            animation: none;
+  }
+}
 .hero {
   position: relative;
   min-height: 85vh;
@@ -796,44 +878,48 @@ html[data-theme=light] .light-sweep {
   background: var(--glass);
 }
 
-/* ========= CTA EN BULLES (optionnel, si tu ajoutes la version “bubbles”) ========= */
+/* ========= CTA EN BULLES ========= */
 .contact-bubbles {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  gap: 25px;
-  margin-top: 1.25rem;
+  gap: 2.5rem;
+  margin-top: 2rem;
   list-style: none;
   padding: 0;
 }
 
 .contact-bubbles li {
+  /* Vars */
+  --w: 100px;
+  --halo-i: color-mix(in oklab, var(--i) 80%, transparent);
+  --halo-j: color-mix(in oklab, var(--j) 80%, transparent);
   position: relative;
-  width: 100px;
+  width: var(--w);
   height: 100px;
   border-radius: 60px;
-  background: rgba(255, 255, 255, 0.1);
-  -webkit-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.14);
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.14);
   overflow: hidden;
-  -webkit-transition: all 0.45s ease;
-  transition: all 0.45s ease;
+  z-index: 0;
+  /* 🌈 Dégradé toujours visible */
+  background: linear-gradient(45deg, var(--halo-i), var(--halo-j));
+  /* 💫 Halo permanent */
+  -webkit-box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.45), 0 0 12px color-mix(in oklab, var(--halo-i) 70%, transparent), 0 0 22px color-mix(in oklab, var(--halo-j) 60%, transparent), 0 10px 25px rgba(0, 0, 0, 0.14);
+          box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.45), 0 0 12px color-mix(in oklab, var(--halo-i) 70%, transparent), 0 0 22px color-mix(in oklab, var(--halo-j) 60%, transparent), 0 10px 25px rgba(0, 0, 0, 0.14);
+  -webkit-transition: width 0.45s cubic-bezier(0.2, 0.9, 0.2, 1), background 0.3s ease, -webkit-box-shadow 0.45s ease, -webkit-transform 0.45s ease;
+  transition: width 0.45s cubic-bezier(0.2, 0.9, 0.2, 1), background 0.3s ease, -webkit-box-shadow 0.45s ease, -webkit-transform 0.45s ease;
+  transition: width 0.45s cubic-bezier(0.2, 0.9, 0.2, 1), box-shadow 0.45s ease, transform 0.45s ease, background 0.3s ease;
+  transition: width 0.45s cubic-bezier(0.2, 0.9, 0.2, 1), box-shadow 0.45s ease, transform 0.45s ease, background 0.3s ease, -webkit-box-shadow 0.45s ease, -webkit-transform 0.45s ease;
 }
 
 :root[data-theme=light] .contact-bubbles li {
-  background: rgba(255, 255, 255, 0.85);
-  -webkit-box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  background: linear-gradient(45deg, color-mix(in oklab, var(--i) 85%, white 10%), color-mix(in oklab, var(--j) 85%, white 10%));
+  -webkit-box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7), 0 0 10px color-mix(in oklab, var(--halo-i) 55%, transparent), 0 0 18px color-mix(in oklab, var(--halo-j) 45%, transparent), 0 6px 16px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7), 0 0 10px color-mix(in oklab, var(--halo-i) 55%, transparent), 0 0 18px color-mix(in oklab, var(--halo-j) 45%, transparent), 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
-.contact-bubbles li:hover {
-  width: 200px;
-  -webkit-box-shadow: 0 10px 25px rgba(0, 0, 0, 0);
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0);
-}
-
+/* 🌟 Dégradé interne au swap icon/titre */
 .contact-bubbles li::before,
 .contact-bubbles li::after {
   content: "";
@@ -842,8 +928,8 @@ html[data-theme=light] .light-sweep {
   border-radius: 60px;
   background: linear-gradient(45deg, var(--i), var(--j));
   opacity: 0;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
+  -webkit-transition: opacity 0.5s ease;
+  transition: opacity 0.5s ease;
 }
 
 .contact-bubbles li::after {
@@ -851,14 +937,6 @@ html[data-theme=light] .light-sweep {
   -webkit-filter: blur(15px);
           filter: blur(15px);
   z-index: -1;
-}
-
-.contact-bubbles li:hover::before {
-  opacity: 1;
-}
-
-.contact-bubbles li:hover::after {
-  opacity: 0.5;
 }
 
 .contact-bubbles a {
@@ -873,28 +951,41 @@ html[data-theme=light] .light-sweep {
           justify-content: center;
   height: 100%;
   width: 100%;
-  color: var(--fg);
   text-decoration: none;
   position: relative;
   z-index: 1;
-}
-
-.contact-bubbles .icon {
-  font-size: 2rem;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-  background: inherit;
-  border: none;
-  width: 100%;
   color: var(--fg);
 }
 
-.contact-bubbles li:hover .icon {
-  -webkit-transform: scale(0);
-          transform: scale(0);
-  color: #fff;
+/* === Icône visible par défaut === */
+.contact-bubbles .icon {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: auto;
+  height: auto;
+  font-size: 2rem;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.92);
+  background: transparent; /* ✅ fond transparent */
+  -webkit-transition: color 0.4s ease, background-color 0.2s ease, -webkit-transform 0.4s ease;
+  transition: color 0.4s ease, background-color 0.2s ease, -webkit-transform 0.4s ease;
+  transition: transform 0.4s ease, color 0.4s ease, background-color 0.2s ease;
+  transition: transform 0.4s ease, color 0.4s ease, background-color 0.2s ease, -webkit-transform 0.4s ease;
 }
 
+.contact-bubbles .icon svg {
+  display: block;
+  background: transparent;
+}
+
+/* === Titre caché par défaut === */
 .contact-bubbles .title {
   position: absolute;
   color: #fff;
@@ -903,15 +994,116 @@ html[data-theme=light] .light-sweep {
   letter-spacing: 0.05em;
   -webkit-transform: scale(0);
           transform: scale(0);
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+  -webkit-transition: -webkit-transform 0.4s ease;
+  transition: -webkit-transform 0.4s ease;
+  transition: transform 0.4s ease;
+  transition: transform 0.4s ease, -webkit-transform 0.4s ease;
 }
 
-.contact-bubbles li:hover .title {
-  -webkit-transform: scale(1);
-          transform: scale(1);
+/* ======= Desktop / hover ======= */
+@media (hover: hover) and (pointer: fine) {
+  .contact-bubbles li:hover {
+    --w: 200px;
+    /* 🔥 Halo renforcé + liseré blanc */
+    -webkit-box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.8), 0 0 14px rgba(255, 255, 255, 0.5), 0 0 28px 6px var(--halo-i), 0 0 44px 10px var(--halo-j), 0 10px 25px rgba(0, 0, 0, 0);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.8), 0 0 14px rgba(255, 255, 255, 0.5), 0 0 28px 6px var(--halo-i), 0 0 44px 10px var(--halo-j), 0 10px 25px rgba(0, 0, 0, 0);
+    -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+  }
+  .contact-bubbles li:hover::before {
+    opacity: 1;
+  }
+  .contact-bubbles li:hover::after {
+    opacity: 0.5;
+  }
+  .contact-bubbles li:hover .icon {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  .contact-bubbles li:hover .title {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  .contact-bubbles li {
+    -webkit-animation: bubblePulse 3.2s ease-in-out infinite alternate;
+            animation: bubblePulse 3.2s ease-in-out infinite alternate;
+  }
 }
-
+/* ======= Mobile / sans hover ======= */
+@media (hover: none) {
+  /* Pas de swap : juste le style permanent */
+  .contact-bubbles li::before,
+  .contact-bubbles li::after {
+    opacity: 0;
+  }
+  .contact-bubbles .icon {
+    -webkit-transform: none !important;
+            transform: none !important;
+  }
+  .contact-bubbles .title {
+    display: none;
+  }
+  /* Option : petit pulse discret */
+  .contact-bubbles li {
+    -webkit-animation: bubblePulse 3.2s ease-in-out infinite alternate;
+            animation: bubblePulse 3.2s ease-in-out infinite alternate;
+  }
+}
+/* Pulse discret (préserve prefers-reduced-motion) */
+@-webkit-keyframes bubblePulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.45), 0 0 12px color-mix(in oklab, var(--halo-i) 65%, transparent), 0 0 20px color-mix(in oklab, var(--halo-j) 50%, transparent), 0 8px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.45), 0 0 12px color-mix(in oklab, var(--halo-i) 65%, transparent), 0 0 20px color-mix(in oklab, var(--halo-j) 50%, transparent), 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+  100% {
+    -webkit-box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85), 0 0 16px rgba(255, 255, 255, 0.55), 0 0 28px color-mix(in oklab, var(--halo-i) 80%, transparent), 0 0 42px color-mix(in oklab, var(--halo-j) 65%, transparent);
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85), 0 0 16px rgba(255, 255, 255, 0.55), 0 0 28px color-mix(in oklab, var(--halo-i) 80%, transparent), 0 0 42px color-mix(in oklab, var(--halo-j) 65%, transparent);
+  }
+}
+@keyframes bubblePulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.45), 0 0 12px color-mix(in oklab, var(--halo-i) 65%, transparent), 0 0 20px color-mix(in oklab, var(--halo-j) 50%, transparent), 0 8px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.45), 0 0 12px color-mix(in oklab, var(--halo-i) 65%, transparent), 0 0 20px color-mix(in oklab, var(--halo-j) 50%, transparent), 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+  100% {
+    -webkit-box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85), 0 0 16px rgba(255, 255, 255, 0.55), 0 0 28px color-mix(in oklab, var(--halo-i) 80%, transparent), 0 0 42px color-mix(in oklab, var(--halo-j) 65%, transparent);
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85), 0 0 16px rgba(255, 255, 255, 0.55), 0 0 28px color-mix(in oklab, var(--halo-i) 80%, transparent), 0 0 42px color-mix(in oklab, var(--halo-j) 65%, transparent);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .contact-bubbles li {
+    -webkit-animation: none !important;
+            animation: none !important;
+  }
+}
+/* ======= Layout responsive ======= */
+@media (max-width: 790px) {
+  .contact-bubbles {
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+  }
+}
+@media (max-width: 570px) {
+  .contact-bubbles {
+    display: grid;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    justify-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.25rem;
+  }
+}
+@media (max-width: 400px) {
+  .contact-bubbles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 #celebrate {
   position: fixed;
   inset: 0;

@@ -84,7 +84,7 @@
     <h2>📬 Contact</h2>
     <ul class="contact-bubbles">
       <li style="--i:var(--brand); --j:var(--brand2);">
-        <a href="mailto:liliarossi2504@gmail.com" aria-label="Email">
+        <a href="mailto:liliarossi2504@gmail.com?subject=Contact%20depuis%20le%20CV&body=Bonjour%20Lilia,%0D%0A" aria-label="Email">
           <span class="icon"><ion-icon name="mail-outline"></ion-icon></span>
           <span class="title">Email</span>
         </a>
@@ -116,11 +116,19 @@
 
   </main>
 
-  <footer class="footer">
-    <div class="wrap">
-      <p>© <span id="year"></span> Made with ❤️ by Lilia</p>
-    </div>
-  </footer>
+<footer class="footer" role="contentinfo">
+  <div class="wrap">
+    <p>© <span id="year">2025</span> Made with 
+      <svg class="heart-svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+        <path
+          d="M12 21s-6.7-4.36-9.33-7A6.25 6.25 0 1 1 12 5.23 6.25 6.25 0 1 1 21.33 14c-2.63 2.64-9.33 7-9.33 7z"
+          fill="currentColor"/>
+      </svg>
+      by Lilia
+    </p>
+  </div>
+</footer>
+
 
   <!-- 🎉 Célébration -->
   <div id="celebrate" aria-hidden="true">
