@@ -1,19 +1,24 @@
+@charset "UTF-8";
 :root {
   --bg-grad: radial-gradient(1200px 800px at 10% 0%, #0d1220 0%, #0a0d18 45%, #070a12 100%);
   --fg: #eaf1ff;
   --muted: rgba(234, 241, 255, .7);
   --glass: rgba(255, 255, 255, .08);
   --border: rgba(255, 255, 255, .16);
-  --brand: #FFD166;
-  --brand2: #06D6A0;
-  --brand3: #118AB2;
-  --brand4: #EF476F;
+  --brand: #ff004c;
+  --brand2: #ff7a00;
+  --brand3: #ffd400;
+  --brand4: #43ff64;
+  --brand5: #00eaff;
+  --brand6: #5c57ff;
+  --brand7: #b400ff;
+  --brand8: #ff004c;
   --radius: 18px;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    --bg-grad: radial-gradient(1200px 800px at 10% 0%, #f7fbff 0%, #ecf4ff 45%, #e8f0ff 100%);
+    --bg-grad: radial-gradient(1200px 800px at 10% 0%, #fcfcfd 0%, #f3f4f6 45%, #e9ebee 100%);
     --fg: #0e1320;
     --muted: rgba(20, 25, 35, .7);
     --glass: rgba(255, 255, 255, .6);
@@ -26,16 +31,29 @@
   --muted: rgba(234, 241, 255, .7);
   --glass: rgba(255, 255, 255, .08);
   --border: rgba(255, 255, 255, .16);
+  --particle-link: #eaf1ff;
 }
 
 :root[data-theme=light] {
-  --bg-grad: radial-gradient(1200px 800px at 10% 0%, #f7fbff 0%, #ecf4ff 45%, #e8f0ff 100%);
+  --bg-grad: radial-gradient(1200px 800px at 10% 0%, #fcfcfd 0%, #f3f4f6 45%, #e9ebee 100%);
   --fg: #0e1320;
   --muted: rgba(20, 25, 35, .7);
   --glass: rgba(255, 255, 255, .6);
   --border: rgba(0, 0, 0, .08);
+  --particle-link: rgba(0, 0, 0, .38);
 }
 
+/* permet d'animer un angle stocké dans une custom property */
+@property --ang {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@property --bang {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -72,7 +90,7 @@ kbd {
 
 .btn {
   display: inline-block;
-  background: linear-gradient(135deg, var(--brand), var(--brand2));
+  background: linear-gradient(135deg, var(--brand6), var(--brand7));
   color: #111;
   padding: 0.8rem 1.1rem;
   border-radius: 1rem;
@@ -144,13 +162,21 @@ kbd {
   z-index: 9999;
 }
 
+/* valeur par défaut (dark) */
 .light-sweep {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
   background: radial-gradient(600px 600px at var(--mx, 50%) var(--my, 50%), rgba(239, 71, 111, 0.18), transparent 60%), radial-gradient(900px 900px at calc(var(--mx, 50%) + 20%) calc(var(--my, 50%) + 10%), rgba(17, 138, 178, 0.12), transparent 60%);
-  mix-blend-mode: screen;
+  mix-blend-mode: screen; /* parfait sur fond sombre */
+  isolation: isolate; /* évite des surprises de stacking */
+}
+
+/* en thème clair : change le mode de fusion + renforce un peu l’alpha */
+html[data-theme=light] .light-sweep {
+  mix-blend-mode: overlay; /* ou: multiply; */
+  background: radial-gradient(600px 600px at var(--mx, 50%) var(--my, 50%), rgba(239, 71, 111, 0.28), transparent 60%), radial-gradient(900px 900px at calc(var(--mx, 50%) + 20%) calc(var(--my, 50%) + 10%), rgba(17, 138, 178, 0.22), transparent 60%);
 }
 
 .footer {
@@ -166,7 +192,7 @@ kbd {
 
 .hero {
   position: relative;
-  min-height: 70vh;
+  min-height: 85vh;
   display: grid;
   place-items: center;
   overflow: clip;
@@ -224,6 +250,7 @@ kbd {
 }
 
 .hero-actions {
+  padding-top: 2rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -235,25 +262,33 @@ kbd {
           justify-content: center;
 }
 
+/* ===== TIMELINE ===== */
 .section--timeline {
   position: relative;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-inline: 1rem;
 }
 
+/* Axe vertical central */
 .timeline-axis {
   position: absolute;
   left: 50%;
   top: 0;
   bottom: 0;
   width: 4px;
-  background: -webkit-gradient(linear, left top, left bottom, from(var(--brand3)), to(var(--brand4)));
-  background: linear-gradient(180deg, var(--brand3), var(--brand4));
+  background: -webkit-gradient(linear, left top, left bottom, from(var(--brand8)), color-stop(var(--brand7)), color-stop(var(--brand6)), to(var(--brand5)));
+  background: linear-gradient(180deg, var(--brand8), var(--brand7), var(--brand6), var(--brand5));
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
   opacity: 0.9;
   -webkit-filter: drop-shadow(0 0 10px rgba(17, 138, 178, 0.35));
           filter: drop-shadow(0 0 10px rgba(17, 138, 178, 0.35));
+  z-index: 0;
+  pointer-events: none;
 }
 
+/* Liste principale */
 .timeline-list {
   list-style: none;
   margin: 0;
@@ -262,21 +297,29 @@ kbd {
   gap: 2.4rem;
 }
 
+/* Éléments */
 .timeline-item {
   display: grid;
-  grid-template-columns: 1fr 58px 1fr;
+  grid-template-columns: minmax(0, 1fr) 58px minmax(0, 1fr);
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
           align-items: stretch;
   gap: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
+.timeline-item .card {
+  min-width: 0;
+}
+
+/* Point sur l’axe */
 .dot {
   position: relative;
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: var(--brand3);
+  background: var(--brand6);
   margin: 0 auto;
   border: 2px solid rgba(255, 255, 255, 0.85);
   -webkit-box-shadow: 0 0 0 8px rgba(17, 138, 178, 0.25);
@@ -296,33 +339,7 @@ kbd {
           animation: ring 2.4s ease-in-out infinite;
 }
 
-@-webkit-keyframes pulse {
-  50% {
-    -webkit-box-shadow: 0 0 0 14px rgba(17, 138, 178, 0.14);
-            box-shadow: 0 0 0 14px rgba(17, 138, 178, 0.14);
-  }
-}
-
-@keyframes pulse {
-  50% {
-    -webkit-box-shadow: 0 0 0 14px rgba(17, 138, 178, 0.14);
-            box-shadow: 0 0 0 14px rgba(17, 138, 178, 0.14);
-  }
-}
-@-webkit-keyframes ring {
-  50% {
-    opacity: 0.15;
-    -webkit-transform: scale(1.15);
-            transform: scale(1.15);
-  }
-}
-@keyframes ring {
-  50% {
-    opacity: 0.15;
-    -webkit-transform: scale(1.15);
-            transform: scale(1.15);
-  }
-}
+/* Badge date */
 .date-badge {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -331,7 +348,7 @@ kbd {
       -ms-flex-align: center;
           align-items: center;
   gap: 0.45rem;
-  background: linear-gradient(135deg, var(--brand3), var(--brand4));
+  background: linear-gradient(135deg, var(--brand6), var(--brand7));
   color: #fff;
   padding: 0.25rem 0.6rem;
   border-radius: 0.8rem;
@@ -340,30 +357,16 @@ kbd {
           box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
   -webkit-animation: badge 3.2s ease-in-out infinite;
           animation: badge 3.2s ease-in-out infinite;
+  white-space: nowrap;
+  max-width: 100%;
 }
 
-@-webkit-keyframes badge {
-  50% {
-    -webkit-filter: hue-rotate(25deg);
-            filter: hue-rotate(25deg);
-    -webkit-transform: translateY(-1px);
-            transform: translateY(-1px);
-  }
-}
-
-@keyframes badge {
-  50% {
-    -webkit-filter: hue-rotate(25deg);
-            filter: hue-rotate(25deg);
-    -webkit-transform: translateY(-1px);
-            transform: translateY(-1px);
-  }
-}
 .date-badge svg {
   width: 16px;
   height: 16px;
 }
 
+/* Côtés alternés desktop */
 .timeline-item:nth-child(odd) .card {
   grid-column: 1/2;
   text-align: right;
@@ -410,30 +413,152 @@ kbd {
   opacity: 0.8;
 }
 
-@media (max-width: 900px) {
+/* Ajustements intermédiaires */
+@media (max-width: 980px) {
   .timeline-item {
-    grid-template-columns: 1fr 44px 1fr;
+    gap: 0.8rem;
+  }
+  .timeline-list {
+    gap: 1.8rem;
   }
 }
-@media (max-width: 680px) {
+@media (min-width: 681px) {
   .timeline-axis {
-    left: 22px;
+    top: calc(8rem + 45px);
+  }
+}
+/* ===== MOBILE RESET: 1 colonne, axe à gauche, date puis carte ===== */
+@media (max-width: 680px) {
+  .section--timeline {
+    padding-inline: 12px;
+  }
+  /* Axe fixe à gauche, derrière */
+  .timeline-axis {
+    left: 16px;
     -webkit-transform: none;
             transform: none;
+    z-index: 0;
+    pointer-events: none;
   }
+  /* Chaque item = grille 2 colonnes (axe + contenu), 2 lignes (date + carte) */
   .timeline-item {
-    grid-template-columns: 28px 1fr;
+    display: grid;
+    grid-template-columns: 32px 1fr; /* 32 = axe + dot + marge */
+    grid-template-rows: auto auto; /* 1: date, 2: carte */
+    -webkit-column-gap: 0.75rem;
+       -moz-column-gap: 0.75rem;
+            column-gap: 0.75rem;
+    row-gap: 1.2rem;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: start;
+    position: relative;
+    z-index: 1;
   }
+  /* Le dot reste sur l’axe et se centre verticalement (entre date et carte) */
   .timeline-item .dot {
     grid-column: 1/2;
-    margin-left: 5px;
+    grid-row: 1/3; /* occupe la hauteur des 2 lignes */
+    align-self: center;
+    justify-self: center;
+    margin: 0;
+    -webkit-box-shadow: 0 0 0 6px rgba(17, 138, 178, 0.22);
+            box-shadow: 0 0 0 6px rgba(17, 138, 178, 0.22);
+    position: absolute;
+    left: -49px;
   }
+  /* Date en 1re ligne, à gauche du contenu */
   .timeline-item .side {
-    display: none;
+    grid-column: 2/3;
+    grid-row: 1;
+    display: block;
+    margin: 0 0 0.1rem 0;
+    text-align: left;
+    opacity: 1;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
   }
+  /* Carte en 2e ligne, pleine largeur */
   .timeline-item .card {
     grid-column: 2/3 !important;
+    grid-row: 2;
     text-align: left !important;
+    min-width: 0; /* évite l’overflow horizontal */
+  }
+  /* Neutralise totalement l’alternance desktop */
+  .timeline-item:nth-child(odd) .side,
+  .timeline-item:nth-child(even) .side {
+    grid-column: 2/3;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+  }
+  .timeline-item:nth-child(odd) .card,
+  .timeline-item:nth-child(even) .card {
+    grid-column: 2/3 !important;
+    text-align: left !important;
+  }
+  /* Badge plus compact et multi-ligne autorisée */
+  .date-badge {
+    white-space: normal;
+    line-height: 1.15;
+    font-size: 0.92rem;
+    padding: 0.5rem 0.7rem;
+  }
+  .date-badge svg {
+    width: 14px;
+    height: 14px;
+  }
+  /* Espacements liste */
+  .timeline-list {
+    gap: 1.4rem;
+    padding-top: 0.5rem;
+  }
+}
+/* =================== */
+/* 🔄 Animations */
+/* =================== */
+@-webkit-keyframes pulse {
+  50% {
+    -webkit-box-shadow: 0 0 0 14px rgba(17, 138, 178, 0.14);
+            box-shadow: 0 0 0 14px rgba(17, 138, 178, 0.14);
+  }
+}
+@keyframes pulse {
+  50% {
+    -webkit-box-shadow: 0 0 0 14px rgba(17, 138, 178, 0.14);
+            box-shadow: 0 0 0 14px rgba(17, 138, 178, 0.14);
+  }
+}
+@-webkit-keyframes ring {
+  50% {
+    opacity: 0.15;
+    -webkit-transform: scale(1.15);
+            transform: scale(1.15);
+  }
+}
+@keyframes ring {
+  50% {
+    opacity: 0.15;
+    -webkit-transform: scale(1.15);
+            transform: scale(1.15);
+  }
+}
+@-webkit-keyframes badge {
+  50% {
+    -webkit-filter: hue-rotate(25deg);
+            filter: hue-rotate(25deg);
+    -webkit-transform: translateY(-1px);
+            transform: translateY(-1px);
+  }
+}
+@keyframes badge {
+  50% {
+    -webkit-filter: hue-rotate(25deg);
+            filter: hue-rotate(25deg);
+    -webkit-transform: translateY(-1px);
+            transform: translateY(-1px);
   }
 }
 .card-grid {
@@ -442,6 +567,7 @@ kbd {
   gap: 1rem;
 }
 
+/* ---- STYLE DE BASE ---- */
 .card {
   position: relative;
   padding: 1.05rem 1.15rem;
@@ -450,30 +576,44 @@ kbd {
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.06)), to(rgba(255, 255, 255, 0.03)));
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
   backdrop-filter: blur(8px);
-  -webkit-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.24);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.24);
   -webkit-transform: translateY(18px) scale(0.985);
           transform: translateY(18px) scale(0.985);
-  opacity: 1;
-  -webkit-transition: opacity 0.6s ease, -webkit-transform 0.6s cubic-bezier(0.2, 0.9, 0.2, 1);
-  transition: opacity 0.6s ease, -webkit-transform 0.6s cubic-bezier(0.2, 0.9, 0.2, 1);
-  transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.2, 1), opacity 0.6s ease;
-  transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.2, 1), opacity 0.6s ease, -webkit-transform 0.6s cubic-bezier(0.2, 0.9, 0.2, 1);
+  -webkit-transition: border-color 0.2s ease, -webkit-transform 0.45s cubic-bezier(0.2, 0.9, 0.2, 1), -webkit-box-shadow 0.45s ease;
+  transition: border-color 0.2s ease, -webkit-transform 0.45s cubic-bezier(0.2, 0.9, 0.2, 1), -webkit-box-shadow 0.45s ease;
+  transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.2, 1), box-shadow 0.45s ease, border-color 0.2s ease;
+  transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.2, 1), box-shadow 0.45s ease, border-color 0.2s ease, -webkit-transform 0.45s cubic-bezier(0.2, 0.9, 0.2, 1), -webkit-box-shadow 0.45s ease;
+  overflow: visible;
 }
 
+/* ---- THÈME CLAIR ---- */
 :root[data-theme=light] .card {
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.85)), to(rgba(255, 255, 255, 0.6)));
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.6));
-  -webkit-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px) saturate(140%);
+  border-color: rgba(255, 255, 255, 0.6);
+  -webkit-box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
+/* ---- THÈME SOMBRE ---- */
+:root[data-theme=dark] .card {
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.06)), to(rgba(255, 255, 255, 0.03)));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+  backdrop-filter: blur(8px);
+  border-color: rgba(255, 255, 255, 0.08);
+  -webkit-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* ---- ÉTAT DE BASE ---- */
 .card.in-view {
   -webkit-transform: translateY(0) scale(1);
           transform: translateY(0) scale(1);
   opacity: 1;
 }
 
+/* ---- CONTENU ---- */
 .card h3 {
   margin: 0 0 0.35rem;
   font-size: clamp(1.1rem, 2.6vw, 1.35rem);
@@ -500,53 +640,73 @@ kbd {
   border: 1px dashed rgba(17, 138, 178, 0.45);
 }
 
-/* outline arc-en-ciel */
-.card::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  border-radius: calc(var(--radius) + 2px);
-  background: conic-gradient(from 0deg, var(--brand3), var(--brand4), var(--brand), var(--brand2), var(--brand3));
-  -webkit-filter: blur(8px);
-          filter: blur(8px);
-  opacity: 0;
-  -webkit-transition: opacity 0.25s;
-  transition: opacity 0.25s;
-  z-index: -1;
+/* =========================================================
+   🌙 THÈME SOMBRE → EFFET NÉON PULSANT ARC-EN-CIEL
+   ========================================================= */
+:root[data-theme=dark] .card:hover,
+:root[data-theme=dark] .card:focus-within {
+  -webkit-transform: translateY(-6px) scale(1.02);
+          transform: translateY(-6px) scale(1.02);
+  border-color: rgba(255, 255, 255, 0.7);
+  -webkit-box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.45), 0 14px 36px rgba(0, 0, 0, 0.32), 0 0 28px 6px color-mix(in oklab, var(--brand5) 85%, transparent), 0 0 46px 10px color-mix(in oklab, var(--brand6) 80%, transparent), 0 0 68px 14px color-mix(in oklab, var(--brand7) 75%, transparent), 0 0 96px 18px color-mix(in oklab, var(--brand8) 70%, transparent);
+          box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.45), 0 14px 36px rgba(0, 0, 0, 0.32), 0 0 28px 6px color-mix(in oklab, var(--brand5) 85%, transparent), 0 0 46px 10px color-mix(in oklab, var(--brand6) 80%, transparent), 0 0 68px 14px color-mix(in oklab, var(--brand7) 75%, transparent), 0 0 96px 18px color-mix(in oklab, var(--brand8) 70%, transparent);
+  -webkit-animation: neonPulse 2.6s ease-in-out infinite alternate;
+          animation: neonPulse 2.6s ease-in-out infinite alternate;
 }
 
-.card:hover::before,
-.card:focus-within::before {
-  opacity: 0.95;
-  -webkit-animation: spin 3s linear infinite;
-          animation: spin 3s linear infinite;
-}
-
-@-webkit-keyframes spin {
-  to {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+/* 💫 Animation du néon (thème sombre uniquement) */
+@-webkit-keyframes neonPulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7), 0 0 6px rgba(255, 255, 255, 0.45), 0 14px 36px rgba(0, 0, 0, 0.3), 0 0 22px 5px color-mix(in oklab, var(--brand5) 75%, transparent), 0 0 40px 9px color-mix(in oklab, var(--brand6) 70%, transparent), 0 0 56px 12px color-mix(in oklab, var(--brand7) 65%, transparent), 0 0 80px 16px color-mix(in oklab, var(--brand8) 60%, transparent);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7), 0 0 6px rgba(255, 255, 255, 0.45), 0 14px 36px rgba(0, 0, 0, 0.3), 0 0 22px 5px color-mix(in oklab, var(--brand5) 75%, transparent), 0 0 40px 9px color-mix(in oklab, var(--brand6) 70%, transparent), 0 0 56px 12px color-mix(in oklab, var(--brand7) 65%, transparent), 0 0 80px 16px color-mix(in oklab, var(--brand8) 60%, transparent);
+  }
+  100% {
+    -webkit-box-shadow: 0 0 0 2px rgb(255, 255, 255), 0 0 14px rgba(255, 255, 255, 0.9), 0 18px 48px rgba(0, 0, 0, 0.35), 0 0 28px 6px color-mix(in oklab, var(--brand5) 90%, transparent), 0 0 48px 10px color-mix(in oklab, var(--brand6) 85%, transparent), 0 0 68px 14px color-mix(in oklab, var(--brand7) 80%, transparent), 0 0 96px 18px color-mix(in oklab, var(--brand8) 75%, transparent);
+            box-shadow: 0 0 0 2px rgb(255, 255, 255), 0 0 14px rgba(255, 255, 255, 0.9), 0 18px 48px rgba(0, 0, 0, 0.35), 0 0 28px 6px color-mix(in oklab, var(--brand5) 90%, transparent), 0 0 48px 10px color-mix(in oklab, var(--brand6) 85%, transparent), 0 0 68px 14px color-mix(in oklab, var(--brand7) 80%, transparent), 0 0 96px 18px color-mix(in oklab, var(--brand8) 75%, transparent);
   }
 }
-
-@keyframes spin {
-  to {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+@keyframes neonPulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7), 0 0 6px rgba(255, 255, 255, 0.45), 0 14px 36px rgba(0, 0, 0, 0.3), 0 0 22px 5px color-mix(in oklab, var(--brand5) 75%, transparent), 0 0 40px 9px color-mix(in oklab, var(--brand6) 70%, transparent), 0 0 56px 12px color-mix(in oklab, var(--brand7) 65%, transparent), 0 0 80px 16px color-mix(in oklab, var(--brand8) 60%, transparent);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7), 0 0 6px rgba(255, 255, 255, 0.45), 0 14px 36px rgba(0, 0, 0, 0.3), 0 0 22px 5px color-mix(in oklab, var(--brand5) 75%, transparent), 0 0 40px 9px color-mix(in oklab, var(--brand6) 70%, transparent), 0 0 56px 12px color-mix(in oklab, var(--brand7) 65%, transparent), 0 0 80px 16px color-mix(in oklab, var(--brand8) 60%, transparent);
+  }
+  100% {
+    -webkit-box-shadow: 0 0 0 2px rgb(255, 255, 255), 0 0 14px rgba(255, 255, 255, 0.9), 0 18px 48px rgba(0, 0, 0, 0.35), 0 0 28px 6px color-mix(in oklab, var(--brand5) 90%, transparent), 0 0 48px 10px color-mix(in oklab, var(--brand6) 85%, transparent), 0 0 68px 14px color-mix(in oklab, var(--brand7) 80%, transparent), 0 0 96px 18px color-mix(in oklab, var(--brand8) 75%, transparent);
+            box-shadow: 0 0 0 2px rgb(255, 255, 255), 0 0 14px rgba(255, 255, 255, 0.9), 0 18px 48px rgba(0, 0, 0, 0.35), 0 0 28px 6px color-mix(in oklab, var(--brand5) 90%, transparent), 0 0 48px 10px color-mix(in oklab, var(--brand6) 85%, transparent), 0 0 68px 14px color-mix(in oklab, var(--brand7) 80%, transparent), 0 0 96px 18px color-mix(in oklab, var(--brand8) 75%, transparent);
   }
 }
-.card:hover {
-  -webkit-box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
-          box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
+/* =========================================================
+   ☀️ THÈME CLAIR → HALO DIFFUS EN BAS / DROITE
+   ========================================================= */
+:root[data-theme=light] .card:hover,
+:root[data-theme=light] .card:focus-within {
+  -webkit-transform: translateY(-4px) scale(1.015);
+          transform: translateY(-4px) scale(1.015);
+  border-color: rgba(0, 0, 0, 0.06);
+  -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06), 0 10px 20px rgba(0, 0, 0, 0.08), 6px 18px 28px -6px color-mix(in oklab, var(--brand6) 45%, transparent), 10px 32px 42px -10px color-mix(in oklab, var(--brand5) 50%, transparent), 14px 48px 64px -14px color-mix(in oklab, var(--brand4) 30%, transparent);
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06), 0 10px 20px rgba(0, 0, 0, 0.08), 6px 18px 28px -6px color-mix(in oklab, var(--brand6) 45%, transparent), 10px 32px 42px -10px color-mix(in oklab, var(--brand5) 50%, transparent), 14px 48px 64px -14px color-mix(in oklab, var(--brand4) 30%, transparent);
 }
 
+/* =========================================================
+   🧠 ACCESSIBILITÉ
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  :root[data-theme=dark] .card:hover,
+  :root[data-theme=dark] .card:focus-within {
+    -webkit-animation: none;
+            animation: none;
+  }
+}
+/* =========================================================
+   💠 ICÔNE DANS LA CARTE
+   ========================================================= */
 .icon {
   display: inline-grid;
   place-items: center;
   width: 28px;
   height: 28px;
   border-radius: 0.6rem;
-  background: linear-gradient(135deg, var(--brand), var(--brand2));
+  background: linear-gradient(135deg, var(--brand6), var(--brand7));
   color: #111;
   font-weight: 900;
   border: 1px solid rgba(0, 0, 0, 0.05);
@@ -636,54 +796,120 @@ kbd {
   background: var(--glass);
 }
 
-.contact-form {
-  display: grid;
-  gap: 0.75rem;
-  max-width: 680px;
-  padding: 1rem;
-}
-
-.contact-form label {
-  display: grid;
-  gap: 0.25rem;
-  font-weight: 600;
-}
-
-.contact-form input,
-.contact-form textarea {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--fg);
-  border: 1px solid var(--border);
-  border-radius: 0.7rem;
-  padding: 0.6rem 0.7rem;
-  -webkit-transition: border-color 0.2s, -webkit-box-shadow 0.2s;
-  transition: border-color 0.2s, -webkit-box-shadow 0.2s;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  transition: border-color 0.2s, box-shadow 0.2s, -webkit-box-shadow 0.2s;
-}
-.contact-form input:focus,
-.contact-form textarea:focus {
-  outline: none;
-  border-color: var(--brand3);
-  -webkit-box-shadow: 0 0 0 4px rgba(17, 138, 178, 0.25);
-          box-shadow: 0 0 0 4px rgba(17, 138, 178, 0.25);
-}
-
-:root[data-theme=light] .contact-form input,
-:root[data-theme=light] .contact-form textarea {
-  background: rgba(0, 0, 0, 0.03);
-}
-
-.actions {
+/* ========= CTA EN BULLES (optionnel, si tu ajoutes la version “bubbles”) ========= */
+.contact-bubbles {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 0.6rem;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  gap: 25px;
+  margin-top: 1.25rem;
+  list-style: none;
+  padding: 0;
+}
+
+.contact-bubbles li {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 60px;
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.14);
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.14);
+  overflow: hidden;
+  -webkit-transition: all 0.45s ease;
+  transition: all 0.45s ease;
+}
+
+:root[data-theme=light] .contact-bubbles li {
+  background: rgba(255, 255, 255, 0.85);
+  -webkit-box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.contact-bubbles li:hover {
+  width: 200px;
+  -webkit-box-shadow: 0 10px 25px rgba(0, 0, 0, 0);
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0);
+}
+
+.contact-bubbles li::before,
+.contact-bubbles li::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 60px;
+  background: linear-gradient(45deg, var(--i), var(--j));
+  opacity: 0;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.contact-bubbles li::after {
+  top: 10px;
+  -webkit-filter: blur(15px);
+          filter: blur(15px);
+  z-index: -1;
+}
+
+.contact-bubbles li:hover::before {
+  opacity: 1;
+}
+
+.contact-bubbles li:hover::after {
+  opacity: 0.5;
+}
+
+.contact-bubbles a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 100%;
+  width: 100%;
+  color: var(--fg);
+  text-decoration: none;
+  position: relative;
+  z-index: 1;
+}
+
+.contact-bubbles .icon {
+  font-size: 2rem;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  background: inherit;
+  border: none;
+  width: 100%;
+  color: var(--fg);
+}
+
+.contact-bubbles li:hover .icon {
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  color: #fff;
+}
+
+.contact-bubbles .title {
+  position: absolute;
+  color: #fff;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.contact-bubbles li:hover .title {
+  -webkit-transform: scale(1);
+          transform: scale(1);
 }
 
 #celebrate {
@@ -729,5 +955,65 @@ kbd {
   }
   to {
     opacity: 1;
+  }
+}
+.btn {
+  position: relative;
+  isolation: isolate;
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 999px;
+  background: conic-gradient(from var(--bang, 0deg), transparent 0 18deg, #00eaff 18deg 20deg, transparent 0 360deg), conic-gradient(from calc(var(--bang, 0deg) + 180deg), transparent 0 18deg, #b400ff 18deg 20deg, transparent 0 360deg);
+  -webkit-mask: -webkit-gradient(linear, left top, left bottom, color-stop(0, #000)) content-box, -webkit-gradient(linear, left top, left bottom, color-stop(0, #000)) border-box;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0) border-box;
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 2px;
+  -webkit-filter: drop-shadow(0 0 8px rgba(0, 238, 255, 0.5));
+          filter: drop-shadow(0 0 8px rgba(0, 238, 255, 0.5));
+  opacity: 0;
+  -webkit-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  -webkit-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+.btn:hover::after,
+.btn:focus-visible::after {
+  opacity: 1;
+  -webkit-animation: btn-border-sweep 1.6s linear infinite;
+          animation: btn-border-sweep 1.6s linear infinite;
+  -webkit-transform: rotate(var(--bang, 0deg));
+          transform: rotate(var(--bang, 0deg));
+}
+
+@-webkit-keyframes btn-border-sweep {
+  to {
+    --bang: 360deg;
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes btn-border-sweep {
+  to {
+    --bang: 360deg;
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover::after,
+  .btn:focus-visible::after {
+    -webkit-animation: none;
+            animation: none;
+    -webkit-transform: none;
+            transform: none;
   }
 }/*# sourceMappingURL=styles.css.map */

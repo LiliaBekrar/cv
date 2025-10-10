@@ -17,9 +17,9 @@
   <header class="hero" role="banner">
     <canvas id="particles" aria-hidden="true"></canvas>
     <div class="hero-inner glass">
-      <div class="theme-toggle">
-        <button id="theme-btn" class="btn small ghost" aria-label="Basculer thème">🌗 Thème</button>
-      </div>
+    <div class="theme-toggle">
+      <button id="theme-btn" class="btn small ghost" aria-label="Basculer thème">🌙 Thème</button>
+    </div>
       <img class="avatar" src="assets/avatar-placeholder.svg" alt="Portrait de Lilia Bekrar" />
       <h1>Lilia Bekrar</h1>
       <p class="subtitle">Développeuse Full-Stack & Cheffe de projet applicatif junior • <strong>#BackendFirst</strong>
@@ -79,26 +79,46 @@
       </div>
     </section>
 
-    <section id="contact" class="section">
-      <div class="wrap">
-        <h2>📬 Contact</h2>
-        <form id="contact-form" class="contact-form glass">
-          <label>Nom <input required name="name" /></label>
-          <label>Email <input required name="email" type="email" /></label>
-          <label>Message <textarea required name="message" rows="5"></textarea></label>
-          <div class="actions">
-            <button class="btn" type="submit">Envoyer</button>
-            <a class="btn ghost" href="mailto:liliarossi2504@gmail.com?subject=Contact%20depuis%20le%20CV">Par email</a>
-          </div>
-          <p id="contact-feedback" class="muted" role="status" aria-live="polite"></p>
-        </form>
-      </div>
-    </section>
+<section id="contact" class="section">
+  <div class="wrap">
+    <h2>📬 Contact</h2>
+    <ul class="contact-bubbles">
+      <li style="--i:var(--brand); --j:var(--brand2);">
+        <a href="mailto:liliarossi2504@gmail.com" aria-label="Email">
+          <span class="icon"><ion-icon name="mail-outline"></ion-icon></span>
+          <span class="title">Email</span>
+        </a>
+      </li>
+
+      <li style="--i:var(--brand3); --j:var(--brand4);">
+        <a href="https://www.linkedin.com/in/liliabekrar/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <span class="icon"><ion-icon name="logo-linkedin"></ion-icon></span>
+          <span class="title">LinkedIn</span>
+        </a>
+      </li>
+
+      <li style="--i:var(--brand5); --j:var(--brand6);">
+        <a href="https://github.com/LiliaBekrar" target="_blank" rel="noopener" aria-label="GitHub">
+          <span class="icon"><ion-icon name="logo-github"></ion-icon></span>
+          <span class="title">GitHub</span>
+        </a>
+      </li>
+
+      <li style="--i:var(--brand7); --j:var(--brand8);">
+        <a href="assets/Lilia_Bekrar_CV.pdf" target="_blank" rel="noopener" aria-label="CV PDF">
+          <span class="icon"><ion-icon name="document-outline"></ion-icon></span>
+          <span class="title">CV PDF</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
   </main>
 
   <footer class="footer">
     <div class="wrap">
-      <p>© <span id="year"></span> Lilia Bekrar — CV interactif</p>
+      <p>© <span id="year"></span> Made with ❤️ by Lilia</p>
     </div>
   </footer>
 
@@ -112,7 +132,9 @@
     <canvas id="confetti" aria-hidden="true"></canvas>
   </div>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <!-- Ionicons -->
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   <script src="js/particles.js" defer></script>
   <script src="js/effects.js" defer></script>
   <script src="js/app.js" defer></script>

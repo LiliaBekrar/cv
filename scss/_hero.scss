@@ -1,6 +1,6 @@
 .hero {
   position: relative;
-  min-height: 70vh;
+  min-height: 85vh;
   display: grid;
   place-items: center;
   overflow: clip;
@@ -57,6 +57,7 @@
 }
 
 .hero-actions {
+  padding-top: 2rem;
   display: flex;
   gap: .6rem;
   flex-wrap: wrap;

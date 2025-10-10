@@ -38,30 +38,36 @@
       const cx = b.left + b.width/2, cy = b.top + b.height/2;
       const dx = (e.clientX - cx) / (b.width/2);
       const dy = (e.clientY - cy) / (b.height/2);
-      card.style.transform = `rotateX(${(-dy*5).toFixed(2)}deg) rotateY(${(dx*5).toFixed(2)}deg) translateY(0) scale(1)`;
+      card.style.transform = `rotateX(${(-dy*1).toFixed(2)}deg) rotateY(${(-dx*4).toFixed(2)}deg) translateY(0) scale(1)`;
     });
   }, {passive:true});
   document.addEventListener('pointerleave', (e)=>{
     if (!e.relatedTarget) document.querySelectorAll('.card').forEach(el=> el.style.transform = '');
   });
 
-  // Theme toggle: auto/light/dark
-  const root = document.documentElement;
-  const btn = document.getElementById('theme-btn');
-  const key = 'cv_theme';
-  const applyTheme = (t) => { if (t === 'auto') root.removeAttribute('data-theme'); else root.setAttribute('data-theme', t); };
-  const next = { 'auto':'light', 'light':'dark', 'dark':'auto' };
-  let theme = localStorage.getItem(key) || 'auto';
-  applyTheme(theme);
-  if (btn) {
-    btn.textContent = theme === 'dark' ? '🌙 Thème' : theme === 'light' ? '☀️ Thème' : '🌗 Thème';
-    btn.addEventListener('click', ()=>{
-      theme = next[theme] || 'auto';
-      localStorage.setItem(key, theme);
-      applyTheme(theme);
-      btn.textContent = theme === 'dark' ? '🌙 Thème' : theme === 'light' ? '☀️ Thème' : '🌗 Thème';
-    });
-  }
+// Theme toggle: light / dark only
+const root = document.documentElement;
+const btn = document.getElementById('theme-btn');
+const key = 'cv_theme';
+
+// Applique le thème
+const applyTheme = (t) => root.setAttribute('data-theme', t);
+
+// Thème par défaut = dark
+let theme = localStorage.getItem(key) || 'dark';
+applyTheme(theme);
+
+// Met à jour l’icône
+if (btn) {
+  btn.textContent = theme === 'dark' ? '🌙 Thème' : '☀️ Thème';
+  btn.addEventListener('click', () => {
+    theme = theme === 'dark' ? 'light' : 'dark';
+    localStorage.setItem(key, theme);
+    applyTheme(theme);
+    btn.textContent = theme === 'dark' ? '🌙 Thème' : '☀️ Thème';
+  });
+}
+
 
   // Celebration once
   let done = false;

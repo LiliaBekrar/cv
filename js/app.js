@@ -7,6 +7,7 @@
     document.getElementById('experience')?.scrollIntoView({behavior:'smooth'});
   });
 
+  // charge un JSON ou fallback
   async function loadJSON(path, fallbackId){
     try {
       const res = await fetch(path);
@@ -18,6 +19,15 @@
     }
   }
 
+  // 🧩 englobe le contenu de chaque .card dans un <div class="card-inner">
+  const injectInner = (cardEl) => {
+    if (!cardEl || cardEl.querySelector('.card-inner')) return;
+    const inner = document.createElement('div');
+    inner.className = 'card-inner';
+    while (cardEl.firstChild) inner.appendChild(cardEl.firstChild);
+    cardEl.appendChild(inner);
+  };
+
   const [exp, edu, projects, highlights, reco] = await Promise.all([
     loadJSON('data/experience.json', 'data-experience'),
     loadJSON('data/education.json', 'data-education'),
@@ -26,37 +36,56 @@
     loadJSON('data/reco.json', 'data-reco')
   ]);
 
-  // Timeline render
+  /* =========================
+     🕰️ Timeline
+     ========================= */
   const iconFor = (type) => ({ lead:'⚙️', dev:'💻', ops:'🛠', edu:'🎓', other:'✨' }[type] || '✨');
   const expList = $('#exp-list');
   const frag = document.createDocumentFragment();
+
   (exp?.items||[]).forEach(it => {
     const li = document.createElement('li'); li.className = 'timeline-item';
-    const side = document.createElement('div'); side.className='side';
+    const side = document.createElement('div'); side.className = 'side';
     side.innerHTML = `<span class="date-badge">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 2h2v2h6V2h2v2h3v18H4V4h3V2zm13 6H4v12h16V8z"/></svg>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+  <path d="M4 10h16"></path>
+</svg>
+
         ${it.period || ''}
       </span>`;
     const dot = document.createElement('div'); dot.className='dot'; dot.setAttribute('aria-hidden','true');
     const card = document.createElement('article'); card.className='card'; card.tabIndex=0;
-    const h3 = document.createElement('h3'); h3.innerHTML = `<span class="icon">${iconFor(it.type)}</span> ${it.title} — ${it.company}`;
+
+    const h3 = document.createElement('h3');
+    h3.innerHTML = `<span class="icon">${iconFor(it.type)}</span> ${it.title} — ${it.company}`;
     const meta = document.createElement('div'); meta.className='meta';
     (it.stack||[]).slice(0,10).forEach(t=>{
       const s = document.createElement('span'); s.className='tag'; s.textContent=t; meta.appendChild(s);
     });
     const p = document.createElement('p'); p.textContent = it.desc || '';
     card.append(h3, meta, p);
+    injectInner(card); // <---- encapsule le contenu
     li.append(side, dot, card); frag.append(li);
   });
   expList?.appendChild(frag);
 
-  // Observe new cards for reveal
+  /* =========================
+     👁️ Apparition des cards
+     ========================= */
   const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target);} });
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in-view');
+        io.unobserve(e.target);
+      }
+    });
   }, {threshold:.2});
   $$('.card').forEach(c=> io.observe(c));
 
-  // Keyboard J/K nav
+  /* =========================
+     ⌨️ Navigation clavier J/K
+     ========================= */
   const cards = $$('.card');
   let idx = 0;
   const focusCard = (i) => {
@@ -69,18 +98,24 @@
     if (['ArrowUp','KeyK'].includes(e.code)) focusCard(idx-1);
   });
 
-  // Education
+  /* =========================
+     🎓 Formation
+     ========================= */
   const eduGrid = $('#edu-grid');
   (edu?.items||[]).forEach(it=>{
     const el = document.createElement('article'); el.className='card';
     el.innerHTML = `<h3>🎓 ${it.title}</h3><div class="meta">${it.place} • ${it.years}</div><p>${it.desc||''}</p>`;
+    injectInner(el);
     eduGrid?.appendChild(el);
   });
 
-  // Projects + filters
+  /* =========================
+     🚀 Projets + filtres
+     ========================= */
   const projGrid = $('#proj-grid');
   const projFilters = $('#proj-filters');
   const tags = Array.from(new Set((projects?.items||[]).flatMap(p => p.tags || []))).sort();
+
   const renderProjects = (activeTag) => {
     projGrid.innerHTML = '';
     (projects?.items||[])
@@ -93,11 +128,14 @@
                         <div class="meta">${p.year || ''} • ${(p.tags||[]).join(' • ')}</div>
                         <p>${p.desc||''}</p>
                         <div class="actions">${links.join(' ')}</div>`;
+        injectInner(el);
         projGrid.appendChild(el);
       });
   };
+
   if (projFilters) {
-    projFilters.innerHTML = `<button class="btn small" data-tag="">Tous</button>` + tags.map(t=>`<button class="btn small ghost" data-tag="${t}">${t}</button>`).join(' ');
+    projFilters.innerHTML = `<button class="btn small" data-tag="">Tous</button>` +
+      tags.map(t=>`<button class="btn small ghost" data-tag="${t}">${t}</button>`).join(' ');
     projFilters.addEventListener('click', (e)=>{
       const tag = e.target.getAttribute('data-tag');
       if (tag !== null) {
@@ -108,7 +146,9 @@
   }
   if (projGrid) renderProjects();
 
-  // Highlights
+  /* =========================
+     ✨ Highlights
+     ========================= */
   const hiList = $('#hi-list');
   (highlights?.items||[]).forEach(h=>{
     const li = document.createElement('li'); li.className = 'badge';
@@ -116,7 +156,9 @@
     hiList?.appendChild(li);
   });
 
-  // Reco
+  /* =========================
+     💬 Recommandations
+     ========================= */
   const recoList = $('#reco-list');
   const initials = name => (name||'?').split(/\s+/).map(p=>p[0]).join('').slice(0,2).toUpperCase();
   const renderReco = (arr=[]) => {
@@ -124,8 +166,13 @@
     arr.forEach(r=>{
       const div = document.createElement('article'); div.className='card reco';
       const avatar = document.createElement('div'); avatar.className='reco-avatar';
-      if (r.avatar_url) { avatar.innerHTML = `<img src="${r.avatar_url}" alt="Photo de ${r.author}" onerror="this.replaceWith(document.createTextNode(''));">`; }
-      else { avatar.textContent = initials(r.author||'?'); avatar.setAttribute('aria-hidden','true'); }
+      if (r.avatar_url) {
+        avatar.innerHTML = `<img src="${r.avatar_url}" alt="Photo de ${r.author}" onerror="this.replaceWith(document.createTextNode(''));">`;
+      } else {
+        avatar.textContent = initials(r.author||'?');
+        avatar.setAttribute('aria-hidden','true');
+      }
+
       const header = document.createElement('header');
       const who = document.createElement('div'); who.className='who';
       who.innerHTML = r.profile_url
@@ -134,6 +181,7 @@
       header.append(avatar, who);
       const quote = document.createElement('blockquote'); quote.textContent = r.text;
       div.append(header, quote);
+      injectInner(div);
       recoList.appendChild(div);
     });
   };

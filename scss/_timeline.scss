@@ -1,19 +1,27 @@
+/* ===== TIMELINE ===== */
 .section--timeline {
   position: relative;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-inline: 1rem;
 }
 
+/* Axe vertical central */
 .timeline-axis {
   position: absolute;
   left: 50%;
   top: 0;
   bottom: 0;
   width: 4px;
-  background: linear-gradient(180deg, var(--brand3), var(--brand4));
+  background: linear-gradient(180deg, var(--brand8), var(--brand7), var(--brand6), var(--brand5));
   transform: translateX(-50%);
   opacity: .9;
   filter: drop-shadow(0 0 10px rgba(17, 138, 178, .35));
+  z-index: 0;
+  pointer-events: none;
 }
 
+/* Liste principale */
 .timeline-list {
   list-style: none;
   margin: 0;
@@ -22,19 +30,27 @@
   gap: 2.4rem;
 }
 
+/* Éléments */
 .timeline-item {
   display: grid;
-  grid-template-columns: 1fr 58px 1fr;
+  grid-template-columns: minmax(0, 1fr) 58px minmax(0, 1fr);
   align-items: stretch;
   gap: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
+.timeline-item .card {
+  min-width: 0;
+}
+
+/* Point sur l’axe */
 .dot {
   position: relative;
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: var(--brand3);
+  background: var(--brand6);
   margin: 0 auto;
   border: 2px solid rgba(255, 255, 255, .85);
   box-shadow: 0 0 0 8px rgba(17, 138, 178, .25);
@@ -51,37 +67,20 @@
   animation: ring 2.4s ease-in-out infinite;
 }
 
-@keyframes pulse {
-  50% {
-    box-shadow: 0 0 0 14px rgba(17, 138, 178, .14);
-  }
-}
-
-@keyframes ring {
-  50% {
-    opacity: .15;
-    transform: scale(1.15);
-  }
-}
-
+/* Badge date */
 .date-badge {
   display: inline-flex;
   align-items: center;
   gap: .45rem;
-  background: linear-gradient(135deg, var(--brand3), var(--brand4));
+  background: linear-gradient(135deg, var(--brand6), var(--brand7));
   color: #fff;
   padding: .25rem .6rem;
   border-radius: .8rem;
   font-weight: 800;
   box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
   animation: badge 3.2s ease-in-out infinite;
-}
-
-@keyframes badge {
-  50% {
-    filter: hue-rotate(25deg);
-    transform: translateY(-1px);
-  }
+  white-space: nowrap;
+  max-width: 100%;
 }
 
 .date-badge svg {
@@ -89,6 +88,7 @@
   height: 16px;
 }
 
+/* Côtés alternés desktop */
 .timeline-item:nth-child(odd) .card {
   grid-column: 1/2;
   text-align: right;
@@ -123,33 +123,115 @@
   opacity: .8;
 }
 
-@media (max-width: 900px) {
+/* Ajustements intermédiaires */
+@media (max-width: 980px) {
   .timeline-item {
-    grid-template-columns: 1fr 44px 1fr;
+    gap: .8rem;
+  }
+  .timeline-list {
+    gap: 1.8rem;
   }
 }
 
-@media (max-width: 680px) {
+@media (min-width: 681px) {
   .timeline-axis {
-    left: 22px;
+    top: calc(8rem + 45px);
+  }
+}
+/* ===== MOBILE RESET: 1 colonne, axe à gauche, date puis carte ===== */
+@media (max-width: 680px) {
+  .section--timeline { padding-inline: 12px; }
+
+  /* Axe fixe à gauche, derrière */
+  .timeline-axis {
+    left: 16px;
     transform: none;
+    z-index: 0;
+    pointer-events: none;
   }
 
+  /* Chaque item = grille 2 colonnes (axe + contenu), 2 lignes (date + carte) */
   .timeline-item {
-    grid-template-columns: 28px 1fr;
+    display: grid;
+    grid-template-columns: 32px 1fr;  /* 32 = axe + dot + marge */
+    grid-template-rows: auto auto;    /* 1: date, 2: carte */
+    column-gap: .75rem;
+    row-gap: 1.2rem;
+    align-items: start;
+    position: relative;
+    z-index: 1;
   }
 
+  /* Le dot reste sur l’axe et se centre verticalement (entre date et carte) */
   .timeline-item .dot {
-    grid-column: 1/2;
-    margin-left: 5px;
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;               /* occupe la hauteur des 2 lignes */
+    align-self: center;
+    justify-self: center;
+    margin: 0;
+    box-shadow: 0 0 0 6px rgba(17, 138, 178, .22);
+        position: absolute;
+    left: -49px;
   }
 
+  /* Date en 1re ligne, à gauche du contenu */
   .timeline-item .side {
-    display: none;
+    grid-column: 2 / 3;
+    grid-row: 1;
+    display: block;
+    margin: 0 0 .1rem 0;
+    text-align: left;
+    opacity: 1;
+    justify-content: flex-start;
   }
 
+  /* Carte en 2e ligne, pleine largeur */
   .timeline-item .card {
-    grid-column: 2/3 !important;
+    grid-column: 2 / 3 !important;
+    grid-row: 2;
     text-align: left !important;
+    min-width: 0;     /* évite l’overflow horizontal */
+  }
+  
+  /* Neutralise totalement l’alternance desktop */
+  .timeline-item:nth-child(odd) .side,
+  .timeline-item:nth-child(even) .side { grid-column: 2 / 3; justify-content: flex-start; }
+  .timeline-item:nth-child(odd) .card,
+  .timeline-item:nth-child(even) .card { grid-column: 2 / 3 !important; text-align: left !important; }
+
+  /* Badge plus compact et multi-ligne autorisée */
+  .date-badge {
+    white-space: normal;
+    line-height: 1.15;
+    font-size: .92rem;
+    padding: .5rem .7rem;
+  }
+  .date-badge svg { width: 14px; height: 14px; }
+
+  /* Espacements liste */
+  .timeline-list { gap: 1.4rem; padding-top: .5rem; }
+}
+
+
+/* =================== */
+/* 🔄 Animations */
+/* =================== */
+@keyframes pulse {
+  50% {
+    box-shadow: 0 0 0 14px rgba(17, 138, 178, .14);
+  }
+}
+
+@keyframes ring {
+  50% {
+    opacity: .15;
+    transform: scale(1.15);
+  }
+}
+
+@keyframes badge {
+  50% {
+    filter: hue-rotate(25deg);
+    transform: translateY(-1px);
   }
 }

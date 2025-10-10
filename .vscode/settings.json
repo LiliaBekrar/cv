@@ -15,5 +15,25 @@
   "liveSassCompile.settings.useNewCompiler": true,
   "liveSassCompile.settings.includeItems": [
     "scss/styles.scss"
-  ]
+  ],
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#44e1b3",
+    "activityBar.background": "#44e1b3",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#bc5ae5",
+    "activityBarBadge.foreground": "#15202b",
+    "commandCenter.border": "#15202b99",
+    "sash.hoverBorder": "#44e1b3",
+    "statusBar.background": "#22d09d",
+    "statusBar.foreground": "#15202b",
+    "statusBarItem.hoverBackground": "#1ba47c",
+    "statusBarItem.remoteBackground": "#22d09d",
+    "statusBarItem.remoteForeground": "#15202b",
+    "titleBar.activeBackground": "#22d09d",
+    "titleBar.activeForeground": "#15202b",
+    "titleBar.inactiveBackground": "#22d09d99",
+    "titleBar.inactiveForeground": "#15202b99"
+  },
+  "peacock.color": "#22d09d"
 }

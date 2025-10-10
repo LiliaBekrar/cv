@@ -33,7 +33,7 @@ kbd {
 
 .btn {
   display: inline-block;
-  background: linear-gradient(135deg, var(--brand), var(--brand2));
+  background: linear-gradient(135deg, var(--brand6), var(--brand7));
   color: #111;
   padding: .8rem 1.1rem;
   border-radius: 1rem;
@@ -94,6 +94,7 @@ kbd {
   z-index: 9999;
 }
 
+/* valeur par défaut (dark) */
 .light-sweep {
   position: fixed;
   inset: 0;
@@ -102,8 +103,18 @@ kbd {
   background:
     radial-gradient(600px 600px at var(--mx, 50%) var(--my, 50%), rgba(239, 71, 111, .18), transparent 60%),
     radial-gradient(900px 900px at calc(var(--mx, 50%) + 20%) calc(var(--my, 50%) + 10%), rgba(17, 138, 178, .12), transparent 60%);
-  mix-blend-mode: screen;
+  mix-blend-mode: screen; /* parfait sur fond sombre */
+  isolation: isolate;     /* évite des surprises de stacking */
 }
+
+/* en thème clair : change le mode de fusion + renforce un peu l’alpha */
+html[data-theme="light"] .light-sweep {
+  mix-blend-mode: overlay; /* ou: multiply; */
+  background:
+    radial-gradient(600px 600px at var(--mx, 50%) var(--my, 50%), rgba(239, 71, 111, .28), transparent 60%),
+    radial-gradient(900px 900px at calc(var(--mx, 50%) + 20%) calc(var(--my, 50%) + 10%), rgba(17, 138, 178, .22), transparent 60%);
+}
+
 
 .footer {
   text-align: center;

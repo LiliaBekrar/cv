@@ -4,29 +4,45 @@
   gap: 1rem;
 }
 
+/* ---- STYLE DE BASE ---- */
 .card {
   position: relative;
   padding: 1.05rem 1.15rem;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .03));
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
   backdrop-filter: blur(8px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+  box-shadow: 0 10px 30px rgba(0,0,0,.24);
   transform: translateY(18px) scale(.985);
-  opacity: 1;
-  transition: transform .6s cubic-bezier(.2, .9, .2, 1), opacity .6s ease;
+  transition: transform .45s cubic-bezier(.2,.9,.2,1),
+              box-shadow .45s ease,
+              border-color .2s ease;
+  overflow: visible;
 }
 
+/* ---- THÈME CLAIR ---- */
 :root[data-theme="light"] .card {
-  background: linear-gradient(180deg, rgba(255, 255, 255, .85), rgba(255, 255, 255, .6));
-  box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px) saturate(140%);
+  border-color: rgba(255,255,255,0.6);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
 
+/* ---- THÈME SOMBRE ---- */
+:root[data-theme="dark"] .card {
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  backdrop-filter: blur(8px);
+  border-color: rgba(255,255,255,.08);
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+/* ---- ÉTAT DE BASE ---- */
 .card.in-view {
   transform: translateY(0) scale(1);
   opacity: 1;
 }
 
+/* ---- CONTENU ---- */
 .card h3 {
   margin: 0 0 .35rem;
   font-size: clamp(1.1rem, 2.6vw, 1.35rem);
@@ -45,48 +61,94 @@
   display: inline-block;
   padding: .22rem .55rem;
   border-radius: .6rem;
-  background: rgba(17, 138, 178, .18);
+  background: rgba(17,138,178,.18);
   color: var(--fg);
-  border: 1px dashed rgba(17, 138, 178, .45)
+  border: 1px dashed rgba(17,138,178,.45);
 }
 
-/* outline arc-en-ciel */
-.card::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  border-radius: calc(var(--radius) + 2px);
-  background: conic-gradient(from 0deg, var(--brand3), var(--brand4), var(--brand), var(--brand2), var(--brand3));
-  filter: blur(8px);
-  opacity: 0;
-  transition: opacity .25s;
-  z-index: -1;
+/* =========================================================
+   🌙 THÈME SOMBRE → EFFET NÉON PULSANT ARC-EN-CIEL
+   ========================================================= */
+:root[data-theme="dark"] .card:hover,
+:root[data-theme="dark"] .card:focus-within {
+  transform: translateY(-6px) scale(1.02);
+  border-color: rgba(255,255,255,.7);
+  box-shadow:
+    /* liseré blanc lumineux collé au bord */
+    0 0 0 1px rgba(255,255,255,.7),
+    0 0 10px rgba(255,255,255,.45),
+    /* ombre douce naturelle */
+    0 14px 36px rgba(0,0,0,.32),
+    /* halo multicolore (brand5 → brand8) */
+    0 0 28px 6px color-mix(in oklab, var(--brand5) 85%, transparent),
+    0 0 46px 10px color-mix(in oklab, var(--brand6) 80%, transparent),
+    0 0 68px 14px color-mix(in oklab, var(--brand7) 75%, transparent),
+    0 0 96px 18px color-mix(in oklab, var(--brand8) 70%, transparent);
+  animation: neonPulse 2.6s ease-in-out infinite alternate;
 }
 
-.card:hover::before,
-.card:focus-within::before {
-  opacity: .95;
-  animation: spin 3s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
+/* 💫 Animation du néon (thème sombre uniquement) */
+@keyframes neonPulse {
+  0% {
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,.7),
+      0 0 6px rgba(255,255,255,.45),
+      0 14px 36px rgba(0,0,0,.3),
+      0 0 22px 5px color-mix(in oklab, var(--brand5) 75%, transparent),
+      0 0 40px 9px color-mix(in oklab, var(--brand6) 70%, transparent),
+      0 0 56px 12px color-mix(in oklab, var(--brand7) 65%, transparent),
+      0 0 80px 16px color-mix(in oklab, var(--brand8) 60%, transparent);
+  }
+  100% {
+    box-shadow:
+      0 0 0 2px rgba(255,255,255,1),
+      0 0 14px rgba(255,255,255,.9),
+      0 18px 48px rgba(0,0,0,.35),
+      0 0 28px 6px color-mix(in oklab, var(--brand5) 90%, transparent),
+      0 0 48px 10px color-mix(in oklab, var(--brand6) 85%, transparent),
+      0 0 68px 14px color-mix(in oklab, var(--brand7) 80%, transparent),
+      0 0 96px 18px color-mix(in oklab, var(--brand8) 75%, transparent);
   }
 }
 
-.card:hover {
-  box-shadow: 0 18px 48px rgba(0, 0, 0, .35);
+/* =========================================================
+   ☀️ THÈME CLAIR → HALO DIFFUS EN BAS / DROITE
+   ========================================================= */
+:root[data-theme="light"] .card:hover,
+:root[data-theme="light"] .card:focus-within {
+  transform: translateY(-4px) scale(1.015);
+  border-color: rgba(0,0,0,.06);
+  box-shadow:
+    /* ombres papier naturelles */
+    0 2px 6px rgba(0,0,0,.06),
+    0 10px 20px rgba(0,0,0,.08),
+    /* halo coloré décalé bas/droite */
+    6px 18px 28px -6px color-mix(in oklab, var(--brand6) 45%, transparent),
+    10px 32px 42px -10px color-mix(in oklab, var(--brand5) 50%, transparent),
+    14px 48px 64px -14px color-mix(in oklab, var(--brand4) 30%, transparent);
 }
 
+/* =========================================================
+   🧠 ACCESSIBILITÉ
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  :root[data-theme="dark"] .card:hover,
+  :root[data-theme="dark"] .card:focus-within {
+    animation: none;
+  }
+}
+
+/* =========================================================
+   💠 ICÔNE DANS LA CARTE
+   ========================================================= */
 .icon {
   display: inline-grid;
   place-items: center;
   width: 28px;
   height: 28px;
   border-radius: .6rem;
-  background: linear-gradient(135deg, var(--brand), var(--brand2));
+  background: linear-gradient(135deg, var(--brand6), var(--brand7));
   color: #111;
   font-weight: 900;
-  border: 1px solid rgba(0, 0, 0, .05);
+  border: 1px solid rgba(0,0,0,.05);
 }

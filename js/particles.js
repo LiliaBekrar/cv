@@ -3,8 +3,16 @@
   const c = document.getElementById('particles');
   if (!c) return;
   const ctx = c.getContext('2d');
-  let w, h, particles;
+  const root = document.documentElement;
+
+  let w, h, particles, linkColor;
+
   const colors = ['#FFD166', '#06D6A0', '#118AB2', '#EF476F'];
+
+  function readLinkColor(){
+    // lit la variable CSS (maj auto quand data-theme change)
+    linkColor = getComputedStyle(root).getPropertyValue('--particle-link').trim() || '#eaf1ff';
+  }
 
   function resize(){
     w = c.width = c.offsetWidth;
@@ -17,10 +25,18 @@
     }));
   }
   window.addEventListener('resize', resize, {passive:true});
+
+  // observe le changement de data-theme pour MAJ la couleur
+  const mo = new MutationObserver(() => readLinkColor());
+  mo.observe(root, { attributes:true, attributeFilter:['data-theme'] });
+
   resize();
+  readLinkColor();
 
   function step(){
     ctx.clearRect(0,0,w,h);
+
+    // points
     for (const p of particles){
       p.x += p.vx; p.y += p.vy;
       if (p.x < 0 || p.x > w) p.vx *= -1;
@@ -28,14 +44,19 @@
       ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
       ctx.fillStyle = p.c; ctx.globalAlpha = 0.85; ctx.fill();
     }
+
+    // liaisons
     ctx.globalAlpha = 0.12;
+    ctx.strokeStyle = linkColor;
+    ctx.lineWidth = 0.45;
+
     for (let i=0;i<particles.length;i++){
       for (let j=i+1;j<particles.length;j++){
         const a = particles[i], b = particles[j];
         const dx=a.x-b.x, dy=a.y-b.y, d2=dx*dx+dy*dy;
         if (d2 < 140*140){
           ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
-          ctx.strokeStyle = '#eaf1ff'; ctx.lineWidth = 0.45; ctx.stroke();
+          ctx.stroke();
         }
       }
     }

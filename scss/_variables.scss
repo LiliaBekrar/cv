@@ -4,16 +4,20 @@
   --muted: rgba(234, 241, 255, .7);
   --glass: rgba(255, 255, 255, .08);
   --border: rgba(255, 255, 255, .16);
-  --brand: #FFD166;
-  --brand2: #06D6A0;
-  --brand3: #118AB2;
-  --brand4: #EF476F;
+  --brand: #ff004c;
+  --brand2: #ff7a00;
+  --brand3: #ffd400;
+  --brand4: #43ff64;
+  --brand5: #00eaff;
+  --brand6: #5c57ff;  
+  --brand7: #b400ff;
+  --brand8: #ff004c;
   --radius: 18px;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    --bg-grad: radial-gradient(1200px 800px at 10% 0%, #f7fbff 0%, #ecf4ff 45%, #e8f0ff 100%);
+    --bg-grad: radial-gradient(1200px 800px at 10% 0%, #fcfcfd 0%, #f3f4f6 45%, #e9ebee 100%);;
     --fg: #0e1320;
     --muted: rgba(20, 25, 35, .7);
     --glass: rgba(255, 255, 255, .6);
@@ -27,12 +31,26 @@
   --muted: rgba(234, 241, 255, .7);
   --glass: rgba(255, 255, 255, .08);
   --border: rgba(255, 255, 255, .16);
+  --particle-link: #eaf1ff; 
 }
 
 :root[data-theme="light"] {
-  --bg-grad: radial-gradient(1200px 800px at 10% 0%, #f7fbff 0%, #ecf4ff 45%, #e8f0ff 100%);
+  --bg-grad: radial-gradient(1200px 800px at 10% 0%, #fcfcfd 0%, #f3f4f6 45%, #e9ebee 100%);
   --fg: #0e1320;
   --muted: rgba(20, 25, 35, .7);
   --glass: rgba(255, 255, 255, .6);
   --border: rgba(0, 0, 0, .08);
+  --particle-link: rgba(0, 0, 0, .38);
+}
+
+/* permet d'animer un angle stocké dans une custom property */
+@property --ang {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+@property --bang {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
 }
