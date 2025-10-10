@@ -189,3 +189,66 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+#contact-top.section--contact--mini {
+  margin: 0 auto 1rem;
+  padding: 0;
+
+  .contact-bubbles {
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: nowrap;
+    /* ✅ 4 sur une seule ligne */
+  }
+
+  .contact-bubbles li {
+    --s: 65px;
+    /* ✅ taille réduite */
+    width: var(--s);
+    height: var(--s);
+    border-radius: 50%;
+    /* ✅ toujours rond */
+    flex: 0 0 auto;
+    /* ✅ pas de wrap */
+    will-change: transform;
+  }
+
+  .contact-bubbles .icon {
+    font-size: 1.25rem;
+  }
+
+  .contact-bubbles .title {
+    font-size: .85rem;
+  }
+
+  /* Hover desktop : grandit sans ovaliser */
+  @media (hover:hover) and (pointer:fine) {
+    .contact-bubbles li:hover {
+      transform: scale(1.18);
+    }
+  }
+
+  /* même sur mobile → 4 bulles en ligne compactes */
+  @media (max-width: 560px) {
+    .contact-bubbles {
+      gap: .6rem;
+      justify-content: space-between;
+    }
+
+    .contact-bubbles li {
+      --s: 58px;
+      /* ✅ version mini mobile */
+    }
+
+    .contact-bubbles .icon {
+      font-size: 1.1rem;
+    }
+  }
+
+  /* accessibilité : pas d’anim si réduit */
+  @media (prefers-reduced-motion: reduce) {
+    .contact-bubbles li:hover {
+      transform: none !important;
+    }
+  }
+}

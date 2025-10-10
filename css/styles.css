@@ -108,6 +108,14 @@ kbd {
           box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
 }
 
+:root[data-theme=light] .btn {
+  background: linear-gradient(135deg, var(--brand5), var(--brand4));
+}
+
+:root[data-theme=light] .btn.ghost {
+  background: transparent;
+}
+
 .btn-lg {
   font-size: 1.05rem;
 }
@@ -152,14 +160,19 @@ kbd {
 #progress {
   position: fixed;
   inset: 0 0 auto 0;
-  height: 3px;
-  background: -webkit-gradient(linear, left top, right top, from(var(--brand3)), to(var(--brand4)));
-  background: linear-gradient(90deg, var(--brand3), var(--brand4));
+  height: 5px;
+  background: -webkit-gradient(linear, left top, right top, from(var(--brand5)), to(var(--brand7)));
+  background: linear-gradient(90deg, var(--brand5), var(--brand7));
   -webkit-transform-origin: 0 50%;
           transform-origin: 0 50%;
   -webkit-transform: scaleX(0);
           transform: scaleX(0);
   z-index: 9999;
+}
+
+:root[data-theme=light] #progress {
+  background: -webkit-gradient(linear, left top, right top, from(var(--brand5)), to(var(--brand4)));
+  background: linear-gradient(90deg, var(--brand5), var(--brand4));
 }
 
 /* valeur par défaut (dark) */
@@ -359,8 +372,8 @@ html[data-theme=light] .light-sweep {
   top: 0;
   bottom: 0;
   width: 4px;
-  background: -webkit-gradient(linear, left top, left bottom, from(var(--brand8)), color-stop(var(--brand7)), color-stop(var(--brand6)), to(var(--brand5)));
-  background: linear-gradient(180deg, var(--brand8), var(--brand7), var(--brand6), var(--brand5));
+  background: -webkit-gradient(linear, left top, left bottom, from(var(--brand7)), color-stop(var(--brand6)), color-stop(var(--brand6)), to(var(--brand5)));
+  background: linear-gradient(180deg, var(--brand7), var(--brand6), var(--brand6), var(--brand5));
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
   opacity: 0.9;
@@ -368,6 +381,11 @@ html[data-theme=light] .light-sweep {
           filter: drop-shadow(0 0 10px rgba(17, 138, 178, 0.35));
   z-index: 0;
   pointer-events: none;
+}
+
+:root[data-theme=light] .timeline-axis {
+  background: -webkit-gradient(linear, left top, left bottom, from(var(--brand4)), color-stop(var(--brand5)), color-stop(var(--brand5)), to(var(--brand6)));
+  background: linear-gradient(180deg, var(--brand4), var(--brand5), var(--brand5), var(--brand6));
 }
 
 /* Liste principale */
@@ -410,6 +428,10 @@ html[data-theme=light] .light-sweep {
           animation: pulse 2.4s ease-in-out infinite;
 }
 
+:root[data-theme=light] .dot {
+  background: var(--brand5);
+}
+
 .dot::after {
   content: "";
   position: absolute;
@@ -441,6 +463,10 @@ html[data-theme=light] .light-sweep {
           animation: badge 3.2s ease-in-out infinite;
   white-space: nowrap;
   max-width: 100%;
+}
+
+:root[data-theme=light] .date-badge {
+  background: linear-gradient(135deg, var(--brand4), var(--brand5));
 }
 
 .date-badge svg {
@@ -794,9 +820,21 @@ html[data-theme=light] .light-sweep {
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+:root[data-theme=light] .icon {
+  background: linear-gradient(135deg, var(--brand5), var(--brand4));
+}
+
+:root[data-theme=light] .contact-bubbles .icon {
+  background: transparent;
+}
+
 .reco-list {
   display: grid;
   gap: 1rem;
+  padding-bottom: 2rem;
+}
+.reco-list p {
+  padding: 1rem 0;
 }
 
 .reco {
@@ -1104,6 +1142,69 @@ html[data-theme=light] .light-sweep {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+#contact-top.section--contact--mini {
+  margin: 0 auto 1rem;
+  padding: 0;
+  /* Hover desktop : grandit sans ovaliser */
+  /* même sur mobile → 4 bulles en ligne compactes */
+  /* accessibilité : pas d’anim si réduit */
+}
+#contact-top.section--contact--mini .contact-bubbles {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 1rem;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  /* ✅ 4 sur une seule ligne */
+}
+#contact-top.section--contact--mini .contact-bubbles li {
+  --s: 65px;
+  /* ✅ taille réduite */
+  width: var(--s);
+  height: var(--s);
+  border-radius: 50%;
+  /* ✅ toujours rond */
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+  /* ✅ pas de wrap */
+  will-change: transform;
+}
+#contact-top.section--contact--mini .contact-bubbles .icon {
+  font-size: 1.25rem;
+}
+#contact-top.section--contact--mini .contact-bubbles .title {
+  font-size: 0.85rem;
+}
+@media (hover: hover) and (pointer: fine) {
+  #contact-top.section--contact--mini .contact-bubbles li:hover {
+    -webkit-transform: scale(1.18);
+            transform: scale(1.18);
+  }
+}
+@media (max-width: 560px) {
+  #contact-top.section--contact--mini .contact-bubbles {
+    gap: 0.6rem;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  #contact-top.section--contact--mini .contact-bubbles li {
+    --s: 58px;
+    /* ✅ version mini mobile */
+  }
+  #contact-top.section--contact--mini .contact-bubbles .icon {
+    font-size: 1.1rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #contact-top.section--contact--mini .contact-bubbles li:hover {
+    -webkit-transform: none !important;
+            transform: none !important;
+  }
+}
+
 #celebrate {
   position: fixed;
   inset: 0;

@@ -13,13 +13,18 @@
   top: 0;
   bottom: 0;
   width: 4px;
-  background: linear-gradient(180deg, var(--brand8), var(--brand7), var(--brand6), var(--brand5));
+  background: linear-gradient(180deg, var(--brand7), var(--brand6), var(--brand6), var(--brand5));
   transform: translateX(-50%);
   opacity: .9;
   filter: drop-shadow(0 0 10px rgba(17, 138, 178, .35));
   z-index: 0;
   pointer-events: none;
 }
+
+:root[data-theme="light"] .timeline-axis {
+  background: linear-gradient(180deg, var(--brand4), var(--brand5), var(--brand5), var(--brand6));
+}
+
 
 /* Liste principale */
 .timeline-list {
@@ -57,6 +62,10 @@
   animation: pulse 2.4s ease-in-out infinite;
 }
 
+:root[data-theme="light"] .dot {
+  background: var(--brand5);
+}
+
 .dot::after {
   content: "";
   position: absolute;
@@ -81,6 +90,10 @@
   animation: badge 3.2s ease-in-out infinite;
   white-space: nowrap;
   max-width: 100%;
+}
+
+:root[data-theme="light"] .date-badge {
+  background: linear-gradient(135deg, var(--brand4), var(--brand5));
 }
 
 .date-badge svg {
@@ -192,7 +205,7 @@
     text-align: left !important;
     min-width: 0;     /* évite l’overflow horizontal */
   }
-  
+
   /* Neutralise totalement l’alternance desktop */
   .timeline-item:nth-child(odd) .side,
   .timeline-item:nth-child(even) .side { grid-column: 2 / 3; justify-content: flex-start; }

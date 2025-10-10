@@ -1,6 +1,11 @@
 .reco-list {
   display: grid;
   gap: 1rem;
+  padding-bottom: 2rem;
+
+  p {
+    padding: 1rem 0;
+  }
 }
 
 .reco {
