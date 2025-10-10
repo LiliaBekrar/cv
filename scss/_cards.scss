@@ -152,3 +152,11 @@
   font-weight: 900;
   border: 1px solid rgba(0,0,0,.05);
 }
+
+:root[data-theme="light"] .icon {
+  background: linear-gradient(135deg, var(--brand5), var(--brand4));
+}
+
+:root[data-theme="light"] .contact-bubbles .icon {
+  background: transparent;
+}
