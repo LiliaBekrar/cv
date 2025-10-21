@@ -101,13 +101,38 @@
   /* =========================
      🎓 Formation
      ========================= */
-  const eduGrid = $('#edu-grid');
-  (edu?.items||[]).forEach(it=>{
-    const el = document.createElement('article'); el.className='card';
-    el.innerHTML = `<h3>🎓 ${it.title}</h3><div class="meta">${it.place} • ${it.years}</div><p>${it.desc||''}</p>`;
-    injectInner(el);
-    eduGrid?.appendChild(el);
+const eduGrid = $('#edu-grid');
+(edu?.items || []).forEach(it => {
+  const el = document.createElement('article');
+  el.className = 'card';
+
+  // 🧱 Crée le bloc principal de la carte
+  el.innerHTML = `
+    <h3>🎓 ${it.title}</h3>
+    <div class="meta">${it.place} • ${it.years}</div>
+    <p>${it.desc || ''}</p>
+  `;
+
+  // 🏷️ Ajoute la section "stack" (tags techniques, matières, etc.)
+  const meta = document.createElement('div');
+  meta.className = 'meta';
+  (it.stack || []).slice(0, 10).forEach(t => {
+    const s = document.createElement('span');
+    s.className = 'tag';
+    s.textContent = t;
+    meta.appendChild(s);
   });
+
+  // 🔧 Injecte le bloc meta à la fin de la carte
+  el.appendChild(meta);
+
+  // 🔄 Ton injection custom (si elle existe)
+  injectInner(el);
+
+  // ➕ Ajoute la carte au grid
+  eduGrid?.appendChild(el);
+});
+
 
   /* =========================
      🚀 Projets + filtres
