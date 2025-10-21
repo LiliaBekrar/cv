@@ -4,17 +4,9 @@
       "title": "Cheffe de projet applicatif / Développeuse",
       "company": "Ville d’Arles – ACCM",
       "period": "Juil. 2024 – Aujourd’hui",
-      "stack": ["PHP", "JS", "PostgreSQL", "Oracle", "Linux", "WordPress", "Bash", "PowerShell", "Django"],
+      "stack": ["PHP", "JavaScript", "PostgreSQL", "Oracle", "Linux", "WordPress", "Publik", "Chronos", "Bash", "PowerShell", "Django", "Python", "Figma", "Canva", "RGPD"],
       "type": "lead",
-      "desc": "Pilotage de projets applicatifs, portail de démarches en ligne, développement & maintenance front/back, coordination équipes et prestataires."
-    },
-    {
-      "title": "Stagiaire dev & systèmes",
-      "company": "Mairie d’Arles",
-      "period": "Avr. 2018 – Juin 2019",
-      "stack": ["PHP", "PostgreSQL", "JS"],
-      "type": "dev",
-      "desc": "Migration opérateur Internet intercommunal. Développement OpenHabilitation."
+      "desc": "Pilotage et développement d’applications métiers pour la transformation numérique du territoire. Gestion du portail de démarches en ligne sous Publik (Entr’ouvert) et de l’intranet institutionnel sous WordPress (thème sur mesure, optimisation UX, intégration API). Coordination des prestataires, définition des besoins métiers, conception front/back et accompagnement des utilisateurs. Développement d’outils internes, automatisation de workflows et suivi des projets via CI/CD."
     },
     {
       "title": "Veilleuse de nuit",
@@ -22,7 +14,23 @@
       "period": "Sep. 2023 – Août 2024",
       "stack": [],
       "type": "other",
-      "desc": "Expérience humaine et sens des responsabilités."
+      "desc": "Expérience marquée par la rigueur, la vigilance et le sens des priorités. Développement de qualités essentielles en gestion d’incidents, autonomie et réactivité — des atouts directement transposables à la supervision d’applications et à la gestion de production informatique."
+    },
+    {
+      "title": "Stagiaire développement & systèmes",
+      "company": "Mairie d’Arles",
+      "period": "Avr. 2018 – Juin 2019",
+      "stack": ["PHP", "PostgreSQL", "JavaScript", "Python", "Linux", "SVN", "OpenMairie"],
+      "type": "dev",
+      "desc": "Contribution au développement et à la maintenance d’applications métiers (OpenHabilitation). Participation à la migration du réseau intercommunal et à l’automatisation des déploiements sous Linux. Première approche du travail collaboratif et des environnements de production réels."
+    },
+    {
+      "title": "Aide chimiste en laboratoire",
+      "company": "Kem One",
+      "period": "Sep. 2016 – Août 2017",
+      "stack": [],
+      "type": "other",
+      "desc": "Approfondissement de la rigueur scientifique, de la méthodologie expérimentale et du respect des procédures. Esprit d’analyse, précision et gestion des données — des qualités que j’applique aujourd’hui dans le développement logiciel et la modélisation de bases de données."
     }
   ]
 }

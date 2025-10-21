@@ -1,6 +1,6 @@
 {
   "items": [
-    { "title": "VoteReminder", "desc": "Bot Discord en Python (discord.py, PostgreSQL, Docker).", "year": 2025, "link": "https://github.com/LiliaBekrar/VoteReminder", "demo": "", "tags": ["Python", "Docker", "PostgreSQL", "Bot", "API"] },
+    { "title": "VoteReminder", "desc": "Bot Discord en Python (discord.py, PostgreSQL, Docker).", "year": 2025, "link": "https://github.com/LiliaBekrar/VoteReminder", "demo": "https://github.com/LiliaBekrar/VoteReminder", "tags": ["Python", "Docker", "PostgreSQL", "Bot", "API"] },
     { "title": "Evaluat3D", "desc": "Calcul d’emballages, choix transport, itinéraire optimisé (Rails/Heroku).", "year": 2022, "link": "https://github.com/LiliaBekrar/evaluat3d", "demo": "", "tags": ["Rails", "Logistique", "Optimisation"] },
     { "title": "BookYourTA", "desc": "Plateforme type AirBnB (Rails/Heroku).", "year": 2021, "link": "https://github.com/LiliaBekrar/BookYourTA", "demo": "", "tags": ["Rails", "Full-stack"] },
     { "title": "RentACar", "desc": "App de location de voitures (Rails, certification 8h).", "year": 2022, "link": "https://github.com/LiliaBekrar/RentACar", "demo": "", "tags": ["Rails", "Certification"] }
