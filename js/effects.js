@@ -31,19 +31,19 @@
     document.querySelectorAll('.card').forEach(c=> io.observe(c));
   });
 
-  // Tilt gentle
-  document.addEventListener('pointermove', (e)=>{
-    document.querySelectorAll('.card.in-view').forEach(card => {
-      const b = card.getBoundingClientRect();
-      const cx = b.left + b.width/2, cy = b.top + b.height/2;
-      const dx = (e.clientX - cx) / (b.width/2);
-      const dy = (e.clientY - cy) / (b.height/2);
-      card.style.transform = `rotateX(${(-dy*1).toFixed(2)}deg) rotateY(${(-dx*4).toFixed(2)}deg) translateY(0) scale(1)`;
-    });
-  }, {passive:true});
-  document.addEventListener('pointerleave', (e)=>{
-    if (!e.relatedTarget) document.querySelectorAll('.card').forEach(el=> el.style.transform = '');
-  });
+  // // Tilt gentle
+  // document.addEventListener('pointermove', (e)=>{
+  //   document.querySelectorAll('.card.in-view').forEach(card => {
+  //     const b = card.getBoundingClientRect();
+  //     const cx = b.left + b.width/2, cy = b.top + b.height/2;
+  //     const dx = (e.clientX - cx) / (b.width/2);
+  //     const dy = (e.clientY - cy) / (b.height/2);
+  //     card.style.transform = `rotateX(${(-dy*1).toFixed(2)}deg) rotateY(${(-dx*4).toFixed(2)}deg) translateY(0) scale(1)`;
+  //   });
+  // }, {passive:true});
+  // document.addEventListener('pointerleave', (e)=>{
+  //   if (!e.relatedTarget) document.querySelectorAll('.card').forEach(el=> el.style.transform = '');
+  // });
 
 // Theme toggle: light / dark only
 const root = document.documentElement;
