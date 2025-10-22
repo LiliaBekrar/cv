@@ -1,151 +1,612 @@
 <!doctype html>
-<html lang="fr" data-theme="auto">
+<html lang="fr" data-theme="dark" class="hydrated">
+  <head>
+    <meta charset="utf-8" />
+    <style data-styles="">
+      ion-icon{visibility:hidden}.hydrated{visibility:inherit}
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lilia Bekrar — CV interactif</title>
+    <meta
+      name="description"
+      content="CV interactif moderne : expériences, formations, projets, recommandations, faits marquants."
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lilia Bekrar — CV interactif</title>
-  <meta name="description"
-    content="CV interactif moderne : expériences, formations, projets, recommandations, faits marquants." />
-  <link rel="stylesheet" href="css/styles.css" />
-</head>
+  <body>
+    <div id="progress" style="transform: scaleX(0);"></div>
+    <div
+      class="light-sweep"
+      aria-hidden="true"
+      style="--mx: 24.635416269302368%; --my: 6.2536875406901045%;"
+    ></div>
 
-<body>
-  <div id="progress"></div>
-  <div class="light-sweep" aria-hidden="true"></div>
+    <header class="hero" role="banner">
+      <canvas id="particles" aria-hidden="true" width="1536" height="576"></canvas>
 
-  <header class="hero" role="banner">
-    <canvas id="particles" aria-hidden="true"></canvas>
-    <div class="hero-inner glass">
-    <div class="theme-toggle">
-      <button id="theme-btn" class="btn small ghost" aria-label="Basculer thème">🌙 Thème</button>
+      <div class="hero-inner glass">
+        <div class="theme-toggle">
+          <button id="theme-btn" class="btn small ghost" aria-label="Basculer thème">🌙 Thème</button>
+        </div>
+
+        <img
+          class="avatar"
+          src="assets/avatar-placeholder.svg"
+          alt="Portrait de Lilia Bekrar"
+          loading="lazy"
+        />
+
+        <h1>Lilia Bekrar</h1>
+        <p class="subtitle">
+          Développeuse Full-Stack &amp; Cheffe de projet applicatif junior • <strong>#BackendFirst</strong>
+        </p>
+        <p class="tagline">“Explore mon parcours comme une aventure interactive”</p>
+
+        <button id="start-btn" class="btn btn-lg">Commencer le parcours ↓</button>
+
+        <nav class="hero-actions" aria-label="Navigation">
+          <a href="#experience" class="btn ghost">Expériences</a>
+          <a href="#education" class="btn ghost">Formations</a>
+          <a href="#projects" class="btn ghost">Projets</a>
+          <a href="#highlights" class="btn ghost">Les +</a>
+          <a href="#reco" class="btn ghost">Recommandations</a>
+          <a href="#contact" class="btn ghost">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="content">
+      <!-- Expériences -->
+      <section id="experience" class="section section--timeline">
+        <div class="wrap section-header">
+          <h2>🕰️ Expériences professionnelles</h2>
+          <p class="muted">Molette / swipe, ou <kbd>J</kbd>/<kbd>K</kbd>.</p>
+        </div>
+
+        <div class="timeline-axis" aria-hidden="true"></div>
+
+        <ol id="exp-list" class="timeline-list">
+          <li class="timeline-item">
+            <div class="side">
+              <span class="date-badge">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                  <path d="M4 10h16"></path>
+                </svg>
+                Juil. 2024 – Aujourd’hui
+              </span>
+            </div>
+
+            <div class="dot" aria-hidden="true"></div>
+
+            <article class="card in-view" tabindex="0">
+              <div class="card-inner">
+                <h3>
+                  <span class="icon">⚙️</span>
+                  Cheffe de projet applicatif / Développeuse — Ville d’Arles – ACCM
+                </h3>
+
+                <div class="meta">
+                  <span class="tag">PHP</span><span class="tag">JavaScript</span><span class="tag">PostgreSQL</span
+                  ><span class="tag">Oracle</span><span class="tag">Linux</span><span class="tag">WordPress</span
+                  ><span class="tag">Publik</span><span class="tag">Chronos</span><span class="tag">Bash</span
+                  ><span class="tag">PowerShell</span>
+                </div>
+
+                <p>
+                  Pilotage et développement d’applications métiers pour la transformation numérique du territoire.
+                  Gestion du portail de démarches en ligne sous Publik (Entr’ouvert) et de l’intranet institutionnel
+                  sous WordPress (thème sur mesure, optimisation UX, intégration API). Coordination des prestataires,
+                  définition des besoins métiers, conception front/back et accompagnement des utilisateurs.
+                  Développement d’outils internes, automatisation de workflows et suivi des projets via CI/CD.
+                </p>
+              </div>
+            </article>
+          </li>
+
+          <li class="timeline-item">
+            <div class="side">
+              <span class="date-badge">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                  <path d="M4 10h16"></path>
+                </svg>
+                Sep. 2023 – Août 2024
+              </span>
+            </div>
+
+            <div class="dot" aria-hidden="true"></div>
+
+            <article class="card in-view" tabindex="0">
+              <div class="card-inner">
+                <h3><span class="icon">✨</span> Veilleuse de nuit — ACCPA</h3>
+                <div class="meta"></div>
+                <p>
+                  Expérience marquée par la rigueur, la vigilance et le sens des priorités. Développement de qualités
+                  essentielles en gestion d’incidents, autonomie et réactivité — des atouts directement transposables à
+                  la supervision d’applications et à la gestion de production informatique.
+                </p>
+              </div>
+            </article>
+          </li>
+
+          <li class="timeline-item">
+            <div class="side">
+              <span class="date-badge">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                  <path d="M4 10h16"></path>
+                </svg>
+                Avr. 2018 – Juin 2019
+              </span>
+            </div>
+
+            <div class="dot" aria-hidden="true"></div>
+
+            <article class="card in-view" tabindex="0">
+              <div class="card-inner">
+                <h3>
+                  <span class="icon">💻</span>
+                  Stagiaire développement &amp; systèmes — Mairie d’Arles
+                </h3>
+                <div class="meta">
+                  <span class="tag">PHP</span><span class="tag">PostgreSQL</span><span class="tag">JavaScript</span
+                  ><span class="tag">Python</span><span class="tag">Linux</span><span class="tag">SVN</span
+                  ><span class="tag">OpenMairie</span>
+                </div>
+                <p>
+                  Contribution au développement et à la maintenance d’applications métiers (OpenHabilitation).
+                  Participation à la migration du réseau intercommunal et à l’automatisation des déploiements sous
+                  Linux. Première approche du travail collaboratif et des environnements de production réels.
+                </p>
+              </div>
+            </article>
+          </li>
+
+          <li class="timeline-item">
+            <div class="side">
+              <span class="date-badge">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                  <path d="M4 10h16"></path>
+                </svg>
+                Sep. 2016 – Août 2017
+              </span>
+            </div>
+
+            <div class="dot" aria-hidden="true"></div>
+
+            <article class="card in-view" tabindex="0">
+              <div class="card-inner">
+                <h3><span class="icon">✨</span> Aide chimiste en laboratoire — Kem One</h3>
+                <div class="meta"></div>
+                <p>
+                  Approfondissement de la rigueur scientifique, de la méthodologie expérimentale et du respect des
+                  procédures. Esprit d’analyse, précision et gestion des données — des qualités que j’applique aujourd’hui
+                  dans le développement logiciel et la modélisation de bases de données.
+                </p>
+              </div>
+            </article>
+          </li>
+        </ol>
+      </section>
+
+      <!-- Formations -->
+      <section id="education" class="section">
+        <div class="wrap">
+          <h2>🎓 Formations</h2>
+
+          <div id="edu-grid" class="card-grid">
+            <article class="card">
+              <div class="card-inner">
+                <h3>🎓 Mimo — Full-Stack Development (Professional Certificate)</h3>
+                <div class="meta">En ligne • 2025</div>
+                <p>
+                  Certification professionnelle couvrant l’ensemble du développement web front-end et back-end : React,
+                  Node.js, Express, SQL, et structures de données. Approfondissement des bases du web (HTML, CSS,
+                  JavaScript) et de la logique algorithmique.
+                </p>
+                <div class="meta">
+                  <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span
+                  ><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">Express.js</span
+                  ><span class="tag">SQL</span><span class="tag">Algorithms</span
+                  ><span class="tag">Data Structures</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-inner">
+                <h3>🎓 Le Wagon — Marseille (RNCP niv.6)</h3>
+                <div class="meta">Marseille • 2021–2022</div>
+                <p>Concepteur·trice dev d’app web. Major de promotion (mise en lumière dans Accents de Provence).</p>
+                <div class="meta">
+                  <span class="tag">Ruby</span><span class="tag">JavaScript</span><span class="tag">PostgreSQL</span
+                  ><span class="tag">Ruby on Rails</span><span class="tag">Linux</span><span class="tag">Github</span
+                  ><span class="tag">Google Analytics</span><span class="tag">Sinatra</span
+                  ><span class="tag">Bootstrap</span><span class="tag">HTML</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-inner">
+                <h3>🎓 Licence Pro Mobilité Internet et Web</h3>
+                <div class="meta">Gap • 2019–2020</div>
+                <p>Cursus interrompu suite à la COVID-19.</p>
+                <div class="meta">
+                  <span class="tag">PHP</span><span class="tag">JavaScript</span><span class="tag">PostgreSQL</span
+                  ><span class="tag">MariaDB</span><span class="tag">Réseaux</span><span class="tag">Laravel</span
+                  ><span class="tag">Vue.js</span><span class="tag">HTML</span><span class="tag">CSS</span
+                  ><span class="tag">AJAX</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-inner">
+                <h3>🎓 DUT Métiers du Multimédia et de l’Internet</h3>
+                <div class="meta">Provence • 2017–2019</div>
+                <p>Spécialité programmation &amp; développement web.</p>
+                <div class="meta">
+                  <span class="tag">PHP</span><span class="tag">JavaScript</span><span class="tag">PostgreSQL</span
+                  ><span class="tag">CodeIgniter</span><span class="tag">HTML</span><span class="tag">CSS</span
+                  ><span class="tag">jQuery</span><span class="tag">Bootstrap</span
+                  ><span class="tag">Adobe Illustrator</span><span class="tag">Adobe Premiere Pro</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-inner">
+                <h3>🎓 DUT Mesures Physiques — 1<sup>re</sup> année</h3>
+                <div class="meta">Bouches-du-Rhône • 2016</div>
+                <h3>🎓 Première Année Commune aux Études de Médecine</h3>
+                <div class="meta">Saint-Étienne • 2015</div>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-inner">
+                <h3>🎓 BAC Sciences et Technologies de Laboratoire</h3>
+                <div class="meta">Martigues • 2014</div>
+                <p>Mention Très Bien et félicitations du jury.</p>
+                <div class="meta"></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projets -->
+      <section id="projects" class="section">
+        <div class="wrap">
+          <h2>🚀 Projets</h2>
+
+          <div id="proj-filters" class="filters">
+            <button class="btn small" data-tag="">Tous</button>
+            <button class="btn small ghost" data-tag="API">API</button>
+            <button class="btn small ghost" data-tag="Bot">Bot</button>
+            <button class="btn small ghost" data-tag="Certification">Certification</button>
+            <button class="btn small ghost" data-tag="Docker">Docker</button>
+            <button class="btn small ghost" data-tag="Full-stack">Full-stack</button>
+            <button class="btn small ghost" data-tag="Logistique">Logistique</button>
+            <button class="btn small ghost" data-tag="Optimisation">Optimisation</button>
+            <button class="btn small ghost" data-tag="PostgreSQL">PostgreSQL</button>
+            <button class="btn small ghost" data-tag="Python">Python</button>
+            <button class="btn small ghost" data-tag="Rails">Rails</button>
+          </div>
+
+          <div id="proj-grid" class="card-grid">
+            <article class="card">
+              <div class="card-inner">
+                <h3>🚀 VoteReminder</h3>
+                <div class="meta">2025 • Python • Docker • PostgreSQL • Bot • API</div>
+                <p>Bot Discord en Python (discord.py, PostgreSQL, Docker).</p>
+                <div class="actions">
+                  <a class="btn small" href="https://github.com/LiliaBekrar/VoteReminder" target="_blank" rel="noopener">GitHub</a>
+                  <a class="btn small ghost" href="https://github.com/LiliaBekrar/VoteReminder" target="_blank" rel="noopener">Démo</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-inner">
+                <h3>🚀 Evaluat3D</h3>
+                <div class="meta">2022 • Rails • Logistique • Optimisation</div>
+                <p>Calcul d’emballages, choix transport, itinéraire optimisé (Rails/Heroku).</p>
+                <div class="actions">
+                  <a class="btn small" href="https://github.com/LiliaBekrar/evaluat3d" target="_blank" rel="noopener">GitHub</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-inner">
+                <h3>🚀 BookYourTA</h3>
+                <div class="meta">2021 • Rails • Full-stack</div>
+                <p>Plateforme type AirBnB (Rails/Heroku).</p>
+                <div class="actions">
+                  <a class="btn small" href="https://github.com/LiliaBekrar/BookYourTA" target="_blank" rel="noopener">GitHub</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-inner">
+                <h3>🚀 RentACar</h3>
+                <div class="meta">2022 • Rails • Certification</div>
+                <p>App de location de voitures (Rails, certification 8h).</p>
+                <div class="actions">
+                  <a class="btn small" href="https://github.com/LiliaBekrar/RentACar" target="_blank" rel="noopener">GitHub</a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Les + -->
+      <section id="highlights" class="section">
+        <div class="wrap">
+          <h2>🌟 Les petits +</h2>
+          <ul id="hi-list" class="badges">
+            <li class="badge">
+              <a
+                href="https://media.licdn.com/dms/image/v2/D4E22AQEO2OGHznvLIQ/feedshare-shrink_2048_1536/B4EZlTViThGcAw-/0/1758039781749?e=1762387200&amp;v=beta&amp;t=rT7zNRIzGqvZ04LSogxAW4NkTm1DBadJKHzP2CUbxSU"
+                target="_blank"
+                rel="noopener"
+                >🏆 Certification FullStack Developpeur Mimo</a
+              >
+            </li>
+            <li class="badge">🏆 Major de promo — Le Wagon</li>
+            <li class="badge">🏆 Bac STL mention Très Bien et Félicitations du jury</li>
+            <li class="badge">
+              <a href="https://www.provence.fr/accents-de-provence" target="_blank" rel="noopener">📰 Article Accents de Provence</a>
+            </li>
+            <li class="badge">🎖 Prix coup de cœur — Sci-Tech Challenge (2013)</li>
+            <li class="badge">🩺 PSC1 — Secourisme (2023)</li>
+            <li class="badge">🧠 Sensibilisation démence sénile (2023)</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Recommandations -->
+      <section id="reco" class="section">
+        <div class="wrap">
+          <h2>💬 Recommandations</h2>
+
+          <div id="reco-list" class="reco-list">
+            <article class="card reco">
+              <div class="card-inner">
+                <header>
+                  <div class="reco-avatar" aria-hidden="true">AM</div>
+                  <div class="who">
+                    <strong>Arles MMI</strong>
+                    <span class="muted">Spécialiste multimédia — Aix-Marseille Université (enseignante IUT)</span>
+                  </div>
+                </header>
+                <blockquote>
+                  En qualité d'enseignante en IUT, j'ai pu apprécier le sérieux de Lilia ainsi que la qualité de ses travaux et rendus.
+                  Lilia a toujours su s'adapter et respectait scrupuleusement les délais.
+                  Je ne peux que recommander Lilia et je reste persuadée qu'elle s'intégrera facilement à votre équipe !
+                </blockquote>
+              </div>
+            </article>
+
+            <article class="card reco">
+              <div class="card-inner">
+                <header>
+                  <div class="reco-avatar" aria-hidden="true">GJ</div>
+                  <div class="who">
+                    <strong>Guole JING</strong>
+                    <span class="muted">Assistant achats @ Sealed Air | Master's in International Brand Management, Supplier Negotiation</span>
+                  </div>
+                </header>
+                <blockquote>
+                  As one of the best students in the class, Lilia is not only strong skilled but also friendly, often helps others.
+                  She often shares good study websites with us. It was always a pleasure to spend time with her.
+                  Her curiosity allows us to communicate a lot. I highly recommend her!
+                </blockquote>
+              </div>
+            </article>
+
+            <article class="card reco">
+              <div class="card-inner">
+                <header>
+                  <div class="reco-avatar" aria-hidden="true">JP</div>
+                  <div class="who">
+                    <strong>Jean-Loup Peres</strong>
+                    <span class="muted">Développeur Web Freelance | Formateur @ Le Wagon</span>
+                  </div>
+                </header>
+                <blockquote>
+                  Ayant eu la chance d'encadrer et de collaborer avec Lilia durant sa formation au sein du wagon, je ne peux que recommander son profil :
+                  Les échanges sont fluides, l'objectif est clair, et la détermination est belle et bien présente...
+                  Un réel plaisir, tant sur le plan professionnel qu'humain !
+                </blockquote>
+              </div>
+            </article>
+
+            <article class="card reco">
+              <div class="card-inner">
+                <header>
+                  <div class="reco-avatar" aria-hidden="true">GD</div>
+                  <div class="who">
+                    <strong>Georgia D.</strong>
+                    <span class="muted">Responsable GC déménagement AFTRAL - ISTELI Direction Commerciale et Marketing</span>
+                  </div>
+                </header>
+                <blockquote>
+                  talentueuse en back end. tres bon niveau en front ! tres bonne communicante et diplomate.
+                  patiente et partage de competence !
+                </blockquote>
+              </div>
+            </article>
+
+            <article class="card reco">
+              <div class="card-inner">
+                <header>
+                  <div class="reco-avatar" aria-hidden="true">DV</div>
+                  <div class="who">
+                    <strong>Damien Vincent</strong>
+                    <span class="muted">Co-fondateur d'Imparato • Prof @ Le Wagon</span>
+                  </div>
+                </header>
+                <blockquote>
+                  J'ai accompagné Lilia pendant une partie de sa formation au Wagon.
+                  Lilia a montré rapidement un réel talent et une appétence pour le développement.
+                  Elle est motivée, pugnace et comprend très très vite.
+                  Lilia possède aussi naturellement une posture orientée partage et entraide, c'est une facilitatrice.
+                  Je recommande vivement Lilia.
+                </blockquote>
+              </div>
+            </article>
+          </div>
+
+          <p>
+            <a
+              class="btn small ghost"
+              href="https://www.linkedin.com/in/liliabekrar/details/recommendations/?detailScreenTabIndex=0"
+              target="_blank"
+              rel="noopener"
+              >Voir sur LinkedIn</a
+            >
+          </p>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" class="section">
+        <div class="wrap">
+          <h2>📬 Contact</h2>
+
+          <ul class="contact-bubbles">
+            <li style="--i:var(--brand); --j:var(--brand2);">
+              <a
+                href="mailto:liliarossi2504@gmail.com?subject=Contact%20depuis%20le%20CV&amp;body=Bonjour%20Lilia,%0D%0A"
+                aria-label="Email"
+              >
+                <span class="icon"><ion-icon name="mail-outline" role="img" class="md hydrated" aria-label="mail outline"></ion-icon></span>
+                <span class="title">Email</span>
+              </a>
+            </li>
+
+            <li style="--i:var(--brand3); --j:var(--brand4);">
+              <a
+                href="https://www.linkedin.com/in/liliabekrar/"
+                target="_blank"
+                rel="noopener"
+                aria-label="LinkedIn"
+              >
+                <span class="icon"><ion-icon name="logo-linkedin" role="img" class="md hydrated" aria-label="logo linkedin"></ion-icon></span>
+                <span class="title">LinkedIn</span>
+              </a>
+            </li>
+
+            <li style="--i:var(--brand5); --j:var(--brand6);">
+              <a
+                href="https://github.com/LiliaBekrar"
+                target="_blank"
+                rel="noopener"
+                aria-label="GitHub"
+              >
+                <span class="icon"><ion-icon name="logo-github" role="img" class="md hydrated" aria-label="logo github"></ion-icon></span>
+                <span class="title">GitHub</span>
+              </a>
+            </li>
+
+            <li style="--i:var(--brand7); --j:var(--brand8);">
+              <a
+                href="assets/Lilia_Bekrar_CV.pdf"
+                target="_blank"
+                rel="noopener"
+                aria-label="CV PDF"
+              >
+                <span class="icon"><ion-icon name="document-outline" role="img" class="md hydrated" aria-label="document outline"></ion-icon></span>
+                <span class="title">CV PDF</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+      <div class="wrap">
+        <p>
+          © <span id="year"></span> Made with
+          <svg class="heart-svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path
+              d="M12 21s-6.7-4.36-9.33-7A6.25 6.25 0 1 1 12 5.23 6.25 6.25 0 1 1 21.33 14c-2.63 2.64-9.33 7-9.33 7z"
+              fill="currentColor"
+            ></path>
+          </svg>
+          by Lilia
+        </p>
+      </div>
+    </footer>
+
+    <!-- 🎉 Célébration -->
+    <div id="celebrate" aria-hidden="true">
+      <div class="celebrate-box glass">
+        <h3>🎉 Bravo, vous avez tout parcouru !</h3>
+        <p>Merci d’avoir pris le temps de découvrir mon parcours 🙌</p>
+        <button id="celebrate-close" class="btn small">Fermer</button>
+      </div>
+      <canvas id="confetti" aria-hidden="true"></canvas>
     </div>
-      <img class="avatar" src="assets/avatar-placeholder.svg" alt="Portrait de Lilia Bekrar" />
-      <h1>Lilia Bekrar</h1>
-      <p class="subtitle">Développeuse Full-Stack & Cheffe de projet applicatif junior • <strong>#BackendFirst</strong>
-      </p>
-      <p class="tagline">“Explore mon parcours comme une aventure interactive”</p>
-      <button id="start-btn" class="btn btn-lg">Commencer le parcours ↓</button>
-      <nav class="hero-actions" aria-label="Navigation">
-        <a href="#experience" class="btn ghost">Expériences</a>
-        <a href="#education" class="btn ghost">Formations</a>
-        <a href="#projects" class="btn ghost">Projets</a>
-        <a href="#highlights" class="btn ghost">Les +</a>
-        <a href="#reco" class="btn ghost">Recommandations</a>
-        <a href="#contact" class="btn ghost">Contact</a>
-      </nav>
-    </div>
-  </header>
 
-  <main id="content">
-    <section id="experience" class="section section--timeline">
-      <div class="wrap section-header">
-        <h2>🕰️ Expériences professionnelles</h2>
-        <p class="muted">Molette / swipe, ou <kbd>J</kbd>/<kbd>K</kbd>.</p>
-      </div>
-      <div class="timeline-axis" aria-hidden="true"></div>
-      <ol id="exp-list" class="timeline-list"></ol>
-    </section>
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 
-    <section id="education" class="section">
-      <div class="wrap">
-        <h2>🎓 Formations</h2>
-        <div id="edu-grid" class="card-grid"></div>
-      </div>
-    </section>
-
-    <section id="projects" class="section">
-      <div class="wrap">
-        <h2>🚀 Projets</h2>
-        <div id="proj-filters" class="filters"></div>
-        <div id="proj-grid" class="card-grid"></div>
-      </div>
-    </section>
-
-    <section id="highlights" class="section">
-      <div class="wrap">
-        <h2>🌟 Les petits +</h2>
-        <ul id="hi-list" class="badges"></ul>
-      </div>
-    </section>
-
-    <section id="reco" class="section">
-      <div class="wrap">
-        <h2>💬 Recommandations</h2>
-        <div id="reco-list" class="reco-list"></div>
-        <p><a class="btn small ghost"
-            href="https://www.linkedin.com/in/liliabekrar/details/recommendations/?detailScreenTabIndex=0"
-            target="_blank" rel="noopener">Voir sur LinkedIn</a></p>
-      </div>
-    </section>
-
-<section id="contact" class="section">
-  <div class="wrap">
-    <h2>📬 Contact</h2>
-    <ul class="contact-bubbles">
-      <li style="--i:var(--brand); --j:var(--brand2);">
-        <a href="mailto:liliarossi2504@gmail.com?subject=Contact%20depuis%20le%20CV&body=Bonjour%20Lilia,%0D%0A" aria-label="Email">
-          <span class="icon"><ion-icon name="mail-outline"></ion-icon></span>
-          <span class="title">Email</span>
-        </a>
-      </li>
-
-      <li style="--i:var(--brand3); --j:var(--brand4);">
-        <a href="https://www.linkedin.com/in/liliabekrar/" target="_blank" rel="noopener" aria-label="LinkedIn">
-          <span class="icon"><ion-icon name="logo-linkedin"></ion-icon></span>
-          <span class="title">LinkedIn</span>
-        </a>
-      </li>
-
-      <li style="--i:var(--brand5); --j:var(--brand6);">
-        <a href="https://github.com/LiliaBekrar" target="_blank" rel="noopener" aria-label="GitHub">
-          <span class="icon"><ion-icon name="logo-github"></ion-icon></span>
-          <span class="title">GitHub</span>
-        </a>
-      </li>
-
-      <li style="--i:var(--brand7); --j:var(--brand8);">
-        <a href="assets/Lilia_Bekrar_CV.pdf" target="_blank" rel="noopener" aria-label="CV PDF">
-          <span class="icon"><ion-icon name="document-outline"></ion-icon></span>
-          <span class="title">CV PDF</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-</section>
-
-  </main>
-
-<footer class="footer" role="contentinfo">
-  <div class="wrap">
-    <p>© <span id="year">2025</span> Made with 
-      <svg class="heart-svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-        <path
-          d="M12 21s-6.7-4.36-9.33-7A6.25 6.25 0 1 1 12 5.23 6.25 6.25 0 1 1 21.33 14c-2.63 2.64-9.33 7-9.33 7z"
-          fill="currentColor"/>
-      </svg>
-      by Lilia
-    </p>
-  </div>
-</footer>
-
-
-  <!-- 🎉 Célébration -->
-  <div id="celebrate" aria-hidden="true">
-    <div class="celebrate-box glass">
-      <h3>🎉 Bravo, vous avez tout parcouru !</h3>
-      <p>Merci d’avoir pris le temps de découvrir mon parcours 🙌</p>
-      <button id="celebrate-close" class="btn small">Fermer</button>
-    </div>
-    <canvas id="confetti" aria-hidden="true"></canvas>
-  </div>
-
-  <!-- Ionicons -->
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-  <script src="js/particles.js" defer></script>
-  <script src="js/effects.js" defer></script>
-  <script src="js/app.js" defer></script>
-</body>
-
+    <!-- Scripts -->
+     <script src="js/serpent.js" defer></script>
+    <script src="js/particles.js" defer></script>
+    <script src="js/effects.js" defer></script>
+    <script src="js/app.js" defer></script>
+  </body>
 </html>
