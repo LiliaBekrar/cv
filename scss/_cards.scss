@@ -1,10 +1,11 @@
+/* ====== GRID ====== */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 1rem;
 }
 
-/* ---- STYLE DE BASE ---- */
+/* ====== STYLE DE BASE ====== */
 .card {
   position: relative;
   padding: 1.05rem 1.15rem;
@@ -14,35 +15,14 @@
   backdrop-filter: blur(8px);
   box-shadow: 0 10px 30px rgba(0,0,0,.24);
   transform: translateY(18px) scale(.985);
-  transition: transform .45s cubic-bezier(.2,.9,.2,1),
-              box-shadow .45s ease,
-              border-color .2s ease;
+  transition:
+    transform .45s cubic-bezier(.2,.9,.2,1),
+    box-shadow .45s ease,
+    border-color .2s ease;
   overflow: visible;
 }
 
-/* ---- THÈME CLAIR ---- */
-:root[data-theme="light"] .card {
-  background: rgba(255,255,255,0.7);
-  backdrop-filter: blur(10px) saturate(140%);
-  border-color: rgba(255,255,255,0.6);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-}
-
-/* ---- THÈME SOMBRE ---- */
-:root[data-theme="dark"] .card {
-  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-  backdrop-filter: blur(8px);
-  border-color: rgba(255,255,255,.08);
-  box-shadow: 0 10px 30px rgba(0,0,0,.25);
-}
-
-/* ---- ÉTAT DE BASE ---- */
-.card.in-view {
-  transform: translateY(0) scale(1);
-  opacity: 1;
-}
-
-/* ---- CONTENU ---- */
+/* ====== CONTENU ====== */
 .card h3 {
   margin: 0 0 .35rem;
   font-size: clamp(1.1rem, 2.6vw, 1.35rem);
@@ -66,20 +46,55 @@
   border: 1px dashed rgba(17,138,178,.45);
 }
 
-/* =========================================================
-   🌙 THÈME SOMBRE → EFFET NÉON PULSANT ARC-EN-CIEL
-   ========================================================= */
+/* ====== RÉVÉLATION DOUCE DU PARAGRAPHE ====== */
+#experience .card p, #education .card p {
+  opacity: 0;
+  transform: translateY(10px);
+  max-height: 0;
+  overflow: hidden;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease,
+    max-height 0.4s ease;
+}
+
+#experience .card:hover p, #education .card:hover p,
+#education .card:focus-within p, #experience .card:focus-within p {
+  opacity: 1;
+  transform: translateY(0);
+  max-height: 400px; /* ajustable selon la taille du texte */
+}
+
+/* ====== ÉTAT D'ENTRÉE (IntersectionObserver) ====== */
+.card.in-view {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* ====== THÈMES ====== */
+:root[data-theme="light"] .card {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px) saturate(140%);
+  border-color: rgba(255,255,255,0.6);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+:root[data-theme="dark"] .card {
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  backdrop-filter: blur(8px);
+  border-color: rgba(255,255,255,.08);
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+/* ====== HOVER HALOS ====== */
 :root[data-theme="dark"] .card:hover,
 :root[data-theme="dark"] .card:focus-within {
   transform: translateY(-6px) scale(1.02);
   border-color: rgba(255,255,255,.7);
   box-shadow:
-    /* liseré blanc lumineux collé au bord */
     0 0 0 1px rgba(255,255,255,.7),
     0 0 10px rgba(255,255,255,.45),
-    /* ombre douce naturelle */
     0 14px 36px rgba(0,0,0,.32),
-    /* halo multicolore (brand5 → brand8) */
     0 0 28px 6px color-mix(in oklab, var(--brand5) 85%, transparent),
     0 0 46px 10px color-mix(in oklab, var(--brand6) 80%, transparent),
     0 0 68px 14px color-mix(in oklab, var(--brand7) 75%, transparent),
@@ -87,7 +102,6 @@
   animation: neonPulse 2.6s ease-in-out infinite alternate;
 }
 
-/* 💫 Animation du néon (thème sombre uniquement) */
 @keyframes neonPulse {
   0% {
     box-shadow:
@@ -111,32 +125,154 @@
   }
 }
 
-/* =========================================================
-   ☀️ THÈME CLAIR → HALO DIFFUS EN BAS / DROITE
-   ========================================================= */
 :root[data-theme="light"] .card:hover,
 :root[data-theme="light"] .card:focus-within {
   transform: translateY(-4px) scale(1.015);
   border-color: rgba(0,0,0,.06);
   box-shadow:
-    /* ombres papier naturelles */
     0 2px 6px rgba(0,0,0,.06),
     0 10px 20px rgba(0,0,0,.08),
-    /* halo coloré décalé bas/droite */
     6px 18px 28px -6px color-mix(in oklab, var(--brand6) 45%, transparent),
     10px 32px 42px -10px color-mix(in oklab, var(--brand5) 50%, transparent),
     14px 48px 64px -14px color-mix(in oklab, var(--brand4) 30%, transparent);
 }
 
-/* =========================================================
-   🧠 ACCESSIBILITÉ
-   ========================================================= */
+/* ====== ACCESSIBILITÉ (motion) ====== */
 @media (prefers-reduced-motion: reduce) {
   :root[data-theme="dark"] .card:hover,
   :root[data-theme="dark"] .card:focus-within {
     animation: none;
   }
 }
+
+/* =========================================================
+   FLIP 3D pour Expériences + Formations
+   ========================================================= */
+.card.flip {
+  perspective: 1200px;
+  -webkit-perspective: 1200px;
+  overflow: visible;
+}
+
+.card.flip .card-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform .7s cubic-bezier(.2,.9,.2,1);
+  min-height: clamp(180px, 28vh, 280px);
+  height: max-content;
+}
+
+.card.flip .card-face {
+  // position: absolute;
+  // inset: 0;
+  padding: inherit;
+  border-radius: inherit;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: grid;
+  align-content: start;
+  gap: .5rem;
+}
+
+.card.flip .card-face.front { transform: rotateY(0deg); }
+.card.flip .card-face.back  { transform: rotateY(180deg); display: none; }
+
+/* état retourné */
+.card.flip:hover .card-3d,
+.card.flip:focus-within .card-3d,
+.card.flip.is-flipped .card-3d {
+  transform: rotateY(180deg);
+  .front { display: none; }
+  .back { display: block; }
+}
+
+
+/* côté dos : apparition douce du <p> */
+.card.flip .card-face.back p {
+  opacity: 0;
+  transform: translateY(8px);
+  max-height: none; /* la face back gère sa propre hauteur */
+  transition: opacity .35s ease, transform .35s ease;
+}
+.card.flip:hover .card-face.back p,
+.card.flip:focus-within .card-face.back p,
+.card.flip.is-flipped .card-face.back p {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Réduction d'animations */
+@media (prefers-reduced-motion: reduce) {
+  .card.flip .card-3d { transition: none; }
+  .card.flip:hover .card-3d,
+  .card.flip:focus-within .card-3d,
+  .card.flip.is-flipped .card-3d { transform: none; }
+  .card.flip .card-face.back p { opacity: 1; transform: none; }
+}
+
+/* =========================================================
+   ✨ PARTICULES ANIMÉES SUR .card.flip (hover/focus/flip)
+   ========================================================= */
+
+.card.flip {
+  position: relative;
+  overflow: hidden;
+}
+
+/* calque des particules */
+.card.flip::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  opacity: 0;
+  background:
+    radial-gradient(3px 3px at 20% 30%, color-mix(in oklab, var(--brand6) 80%, transparent) 0 60%, transparent 61%),
+    radial-gradient(4px 4px at 80% 60%, color-mix(in oklab, var(--brand7) 70%, transparent) 0 55%, transparent 56%),
+    radial-gradient(5px 5px at 50% 80%, color-mix(in oklab, var(--brand8) 60%, transparent) 0 60%, transparent 61%),
+    radial-gradient(2px 2px at 70% 20%, color-mix(in oklab, var(--brand5) 75%, transparent) 0 60%, transparent 61%);
+  background-repeat: repeat;
+  background-size: 220px 220px, 260px 260px, 300px 300px, 200px 200px;
+  filter: blur(0.5px) brightness(1.4);
+  mix-blend-mode: screen;
+  transition: opacity .4s ease;
+  pointer-events: none;
+  animation: cardParticlesMove 18s linear infinite;
+}
+
+/* activation : visible sur hover/focus/flip */
+.card.flip:hover::before,
+.card.flip:focus-within::before,
+.card.flip.is-flipped::before {
+  opacity: .9;
+}
+
+/* animation du motif */
+@keyframes cardParticlesMove {
+  0% {
+    background-position: 0px 0px, 60px 40px, -40px -20px, 20px 10px;
+  }
+  50% {
+    background-position: 120px 80px, 0px 120px, 80px -10px, -60px 20px;
+  }
+  100% {
+    background-position: 240px 160px, 120px 240px, 160px 60px, 0px 40px;
+  }
+}
+
+/* le contenu de la carte reste au-dessus */
+.card.flip > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Variante claire : un peu plus pastel */
+:root[data-theme="light"] .card.flip::before {
+  mix-blend-mode: normal;
+  opacity: 0.7;
+  filter: blur(0.7px) brightness(1.1);
+}
+
 
 /* =========================================================
    💠 ICÔNE DANS LA CARTE

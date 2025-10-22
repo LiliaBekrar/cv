@@ -669,13 +669,14 @@ html[data-theme=light] .light-sweep {
             transform: translateY(-1px);
   }
 }
+/* ====== GRID ====== */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 1rem;
 }
 
-/* ---- STYLE DE BASE ---- */
+/* ====== STYLE DE BASE ====== */
 .card {
   position: relative;
   padding: 1.05rem 1.15rem;
@@ -695,33 +696,7 @@ html[data-theme=light] .light-sweep {
   overflow: visible;
 }
 
-/* ---- THÈME CLAIR ---- */
-:root[data-theme=light] .card {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px) saturate(140%);
-  border-color: rgba(255, 255, 255, 0.6);
-  -webkit-box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-}
-
-/* ---- THÈME SOMBRE ---- */
-:root[data-theme=dark] .card {
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.06)), to(rgba(255, 255, 255, 0.03)));
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
-  backdrop-filter: blur(8px);
-  border-color: rgba(255, 255, 255, 0.08);
-  -webkit-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-}
-
-/* ---- ÉTAT DE BASE ---- */
-.card.in-view {
-  -webkit-transform: translateY(0) scale(1);
-          transform: translateY(0) scale(1);
-  opacity: 1;
-}
-
-/* ---- CONTENU ---- */
+/* ====== CONTENU ====== */
 .card h3 {
   margin: 0 0 0.35rem;
   font-size: clamp(1.1rem, 2.6vw, 1.35rem);
@@ -748,9 +723,53 @@ html[data-theme=light] .light-sweep {
   border: 1px dashed rgba(17, 138, 178, 0.45);
 }
 
-/* =========================================================
-   🌙 THÈME SOMBRE → EFFET NÉON PULSANT ARC-EN-CIEL
-   ========================================================= */
+/* ====== RÉVÉLATION DOUCE DU PARAGRAPHE ====== */
+#experience .card p, #education .card p {
+  opacity: 0;
+  -webkit-transform: translateY(10px);
+          transform: translateY(10px);
+  max-height: 0;
+  overflow: hidden;
+  -webkit-transition: opacity 0.4s ease, max-height 0.4s ease, -webkit-transform 0.4s ease;
+  transition: opacity 0.4s ease, max-height 0.4s ease, -webkit-transform 0.4s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease, max-height 0.4s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease, max-height 0.4s ease, -webkit-transform 0.4s ease;
+}
+
+#experience .card:hover p, #education .card:hover p,
+#education .card:focus-within p, #experience .card:focus-within p {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+  max-height: 400px; /* ajustable selon la taille du texte */
+}
+
+/* ====== ÉTAT D'ENTRÉE (IntersectionObserver) ====== */
+.card.in-view {
+  -webkit-transform: translateY(0) scale(1);
+          transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* ====== THÈMES ====== */
+:root[data-theme=light] .card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px) saturate(140%);
+  border-color: rgba(255, 255, 255, 0.6);
+  -webkit-box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+:root[data-theme=dark] .card {
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.06)), to(rgba(255, 255, 255, 0.03)));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+  backdrop-filter: blur(8px);
+  border-color: rgba(255, 255, 255, 0.08);
+  -webkit-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* ====== HOVER HALOS ====== */
 :root[data-theme=dark] .card:hover,
 :root[data-theme=dark] .card:focus-within {
   -webkit-transform: translateY(-6px) scale(1.02);
@@ -762,7 +781,6 @@ html[data-theme=light] .light-sweep {
           animation: neonPulse 2.6s ease-in-out infinite alternate;
 }
 
-/* 💫 Animation du néon (thème sombre uniquement) */
 @-webkit-keyframes neonPulse {
   0% {
     -webkit-box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7), 0 0 6px rgba(255, 255, 255, 0.45), 0 14px 36px rgba(0, 0, 0, 0.3), 0 0 22px 5px color-mix(in oklab, var(--brand5) 75%, transparent), 0 0 40px 9px color-mix(in oklab, var(--brand6) 70%, transparent), 0 0 56px 12px color-mix(in oklab, var(--brand7) 65%, transparent), 0 0 80px 16px color-mix(in oklab, var(--brand8) 60%, transparent);
@@ -773,6 +791,7 @@ html[data-theme=light] .light-sweep {
             box-shadow: 0 0 0 2px rgb(255, 255, 255), 0 0 14px rgba(255, 255, 255, 0.9), 0 18px 48px rgba(0, 0, 0, 0.35), 0 0 28px 6px color-mix(in oklab, var(--brand5) 90%, transparent), 0 0 48px 10px color-mix(in oklab, var(--brand6) 85%, transparent), 0 0 68px 14px color-mix(in oklab, var(--brand7) 80%, transparent), 0 0 96px 18px color-mix(in oklab, var(--brand8) 75%, transparent);
   }
 }
+
 @keyframes neonPulse {
   0% {
     -webkit-box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7), 0 0 6px rgba(255, 255, 255, 0.45), 0 14px 36px rgba(0, 0, 0, 0.3), 0 0 22px 5px color-mix(in oklab, var(--brand5) 75%, transparent), 0 0 40px 9px color-mix(in oklab, var(--brand6) 70%, transparent), 0 0 56px 12px color-mix(in oklab, var(--brand7) 65%, transparent), 0 0 80px 16px color-mix(in oklab, var(--brand8) 60%, transparent);
@@ -783,9 +802,6 @@ html[data-theme=light] .light-sweep {
             box-shadow: 0 0 0 2px rgb(255, 255, 255), 0 0 14px rgba(255, 255, 255, 0.9), 0 18px 48px rgba(0, 0, 0, 0.35), 0 0 28px 6px color-mix(in oklab, var(--brand5) 90%, transparent), 0 0 48px 10px color-mix(in oklab, var(--brand6) 85%, transparent), 0 0 68px 14px color-mix(in oklab, var(--brand7) 80%, transparent), 0 0 96px 18px color-mix(in oklab, var(--brand8) 75%, transparent);
   }
 }
-/* =========================================================
-   ☀️ THÈME CLAIR → HALO DIFFUS EN BAS / DROITE
-   ========================================================= */
 :root[data-theme=light] .card:hover,
 :root[data-theme=light] .card:focus-within {
   -webkit-transform: translateY(-4px) scale(1.015);
@@ -795,9 +811,7 @@ html[data-theme=light] .light-sweep {
           box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06), 0 10px 20px rgba(0, 0, 0, 0.08), 6px 18px 28px -6px color-mix(in oklab, var(--brand6) 45%, transparent), 10px 32px 42px -10px color-mix(in oklab, var(--brand5) 50%, transparent), 14px 48px 64px -14px color-mix(in oklab, var(--brand4) 30%, transparent);
 }
 
-/* =========================================================
-   🧠 ACCESSIBILITÉ
-   ========================================================= */
+/* ====== ACCESSIBILITÉ (motion) ====== */
 @media (prefers-reduced-motion: reduce) {
   :root[data-theme=dark] .card:hover,
   :root[data-theme=dark] .card:focus-within {
@@ -805,6 +819,179 @@ html[data-theme=light] .light-sweep {
             animation: none;
   }
 }
+/* =========================================================
+   FLIP 3D pour Expériences + Formations
+   ========================================================= */
+.card.flip {
+  perspective: 1200px;
+  -webkit-perspective: 1200px;
+  overflow: visible;
+}
+
+.card.flip .card-3d {
+  position: relative;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transition: -webkit-transform 0.7s cubic-bezier(0.2, 0.9, 0.2, 1);
+  transition: -webkit-transform 0.7s cubic-bezier(0.2, 0.9, 0.2, 1);
+  transition: transform 0.7s cubic-bezier(0.2, 0.9, 0.2, 1);
+  transition: transform 0.7s cubic-bezier(0.2, 0.9, 0.2, 1), -webkit-transform 0.7s cubic-bezier(0.2, 0.9, 0.2, 1);
+  min-height: clamp(180px, 28vh, 280px);
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+}
+
+.card.flip .card-face {
+  padding: inherit;
+  border-radius: inherit;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: grid;
+  -ms-flex-line-pack: start;
+      align-content: start;
+  gap: 0.5rem;
+}
+
+.card.flip .card-face.front {
+  -webkit-transform: rotateY(0deg);
+          transform: rotateY(0deg);
+}
+
+.card.flip .card-face.back {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+  display: none;
+}
+
+/* état retourné */
+.card.flip:hover .card-3d,
+.card.flip:focus-within .card-3d,
+.card.flip.is-flipped .card-3d {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
+.card.flip:hover .card-3d .front,
+.card.flip:focus-within .card-3d .front,
+.card.flip.is-flipped .card-3d .front {
+  display: none;
+}
+.card.flip:hover .card-3d .back,
+.card.flip:focus-within .card-3d .back,
+.card.flip.is-flipped .card-3d .back {
+  display: block;
+}
+
+/* côté dos : apparition douce du <p> */
+.card.flip .card-face.back p {
+  opacity: 0;
+  -webkit-transform: translateY(8px);
+          transform: translateY(8px);
+  max-height: none; /* la face back gère sa propre hauteur */
+  -webkit-transition: opacity 0.35s ease, -webkit-transform 0.35s ease;
+  transition: opacity 0.35s ease, -webkit-transform 0.35s ease;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  transition: opacity 0.35s ease, transform 0.35s ease, -webkit-transform 0.35s ease;
+}
+
+.card.flip:hover .card-face.back p,
+.card.flip:focus-within .card-face.back p,
+.card.flip.is-flipped .card-face.back p {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+
+/* Réduction d'animations */
+@media (prefers-reduced-motion: reduce) {
+  .card.flip .card-3d {
+    -webkit-transition: none;
+    transition: none;
+  }
+  .card.flip:hover .card-3d,
+  .card.flip:focus-within .card-3d,
+  .card.flip.is-flipped .card-3d {
+    -webkit-transform: none;
+            transform: none;
+  }
+  .card.flip .card-face.back p {
+    opacity: 1;
+    -webkit-transform: none;
+            transform: none;
+  }
+}
+/* =========================================================
+   ✨ PARTICULES ANIMÉES SUR .card.flip (hover/focus/flip)
+   ========================================================= */
+.card.flip {
+  position: relative;
+  overflow: hidden;
+}
+
+/* calque des particules */
+.card.flip::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  opacity: 0;
+  background: radial-gradient(3px 3px at 20% 30%, color-mix(in oklab, var(--brand6) 80%, transparent) 0 60%, transparent 61%), radial-gradient(4px 4px at 80% 60%, color-mix(in oklab, var(--brand7) 70%, transparent) 0 55%, transparent 56%), radial-gradient(5px 5px at 50% 80%, color-mix(in oklab, var(--brand8) 60%, transparent) 0 60%, transparent 61%), radial-gradient(2px 2px at 70% 20%, color-mix(in oklab, var(--brand5) 75%, transparent) 0 60%, transparent 61%);
+  background-repeat: repeat;
+  background-size: 220px 220px, 260px 260px, 300px 300px, 200px 200px;
+  -webkit-filter: blur(0.5px) brightness(1.4);
+          filter: blur(0.5px) brightness(1.4);
+  mix-blend-mode: screen;
+  -webkit-transition: opacity 0.4s ease;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  -webkit-animation: cardParticlesMove 18s linear infinite;
+          animation: cardParticlesMove 18s linear infinite;
+}
+
+/* activation : visible sur hover/focus/flip */
+.card.flip:hover::before,
+.card.flip:focus-within::before,
+.card.flip.is-flipped::before {
+  opacity: 0.9;
+}
+
+/* animation du motif */
+@-webkit-keyframes cardParticlesMove {
+  0% {
+    background-position: 0px 0px, 60px 40px, -40px -20px, 20px 10px;
+  }
+  50% {
+    background-position: 120px 80px, 0px 120px, 80px -10px, -60px 20px;
+  }
+  100% {
+    background-position: 240px 160px, 120px 240px, 160px 60px, 0px 40px;
+  }
+}
+@keyframes cardParticlesMove {
+  0% {
+    background-position: 0px 0px, 60px 40px, -40px -20px, 20px 10px;
+  }
+  50% {
+    background-position: 120px 80px, 0px 120px, 80px -10px, -60px 20px;
+  }
+  100% {
+    background-position: 240px 160px, 120px 240px, 160px 60px, 0px 40px;
+  }
+}
+/* le contenu de la carte reste au-dessus */
+.card.flip > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Variante claire : un peu plus pastel */
+:root[data-theme=light] .card.flip::before {
+  mix-blend-mode: normal;
+  opacity: 0.7;
+  -webkit-filter: blur(0.7px) brightness(1.1);
+          filter: blur(0.7px) brightness(1.1);
+}
+
 /* =========================================================
    💠 ICÔNE DANS LA CARTE
    ========================================================= */
